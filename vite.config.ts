@@ -6,5 +6,5 @@ export default defineConfig({
         outDir: "../dist",
         emptyOutDir: true
     },
-    base: "/choreographer-web/"
+    base: "/choreographer/"
 })
