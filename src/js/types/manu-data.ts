@@ -83,6 +83,9 @@ export class ManuData {
             this.data[item_type][current_index].amount
         ) {
             current_index++;
+            if (current_index >= this.data[item_type].length) {
+                break;
+            }
         }
 
         this.manu_index[item_type] = current_index;

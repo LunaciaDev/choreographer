@@ -2,13 +2,15 @@ import { item_data } from '../data/item-data';
 import { duration_to_string } from '../helper';
 import { Cost } from '../types/item-cost';
 import type { ManuData } from '../types/manu-data';
-import type { UserData } from '../types/user-data';
+import type { UserDataV1 } from '../types/user-data';
 import { ConfigScreen } from './config-screen';
 import { DomRegistry } from './dom-registry';
 
 let enable_local_storage: boolean;
-let user_data: UserData;
+let user_data: UserDataV1;
 
+const CURRENT_VERSION = 1;
+const VERSION_KEY = 'saveversion';
 const DATA_KEY = 'userdata';
 
 function is_local_storage_available(): boolean {
@@ -32,24 +34,41 @@ function is_local_storage_available(): boolean {
 function load_user_data() {
     const storage_instance = window.localStorage;
     const raw_user_data = storage_instance.getItem(DATA_KEY);
+    const version_data = storage_instance.getItem(VERSION_KEY);
 
-    if (raw_user_data !== null) {
-        user_data = JSON.parse(raw_user_data) as UserData;
+    if (version_data !== null) {
+        // Load the data based on version key.
+        // Right now only key is v1.0 so it's fine to not have specialists
+        if (raw_user_data !== null) {
+            user_data = JSON.parse(raw_user_data) as UserDataV1;
 
-        // casting Object to Cost
-        const cost = new Cost();
-        cost.bmat = user_data.material_consumed.bmat;
-        cost.emat = user_data.material_consumed.emat;
-        cost.rmat = user_data.material_consumed.rmat;
-        cost.hemat = user_data.material_consumed.hemat;
-        user_data.material_consumed = cost;
-    } else {
+            // casting Object to Cost
+            const cost = new Cost();
+            cost.bmat = user_data.material_consumed.bmat;
+            cost.emat = user_data.material_consumed.emat;
+            cost.rmat = user_data.material_consumed.rmat;
+            cost.hemat = user_data.material_consumed.hemat;
+            user_data.material_consumed = cost;
+        } else {
+            user_data = {
+                crate_crafted: 0,
+                material_consumed: new Cost(),
+                item_crafted: [],
+                time_spent: 0,
+            };
+        }
+    }
+    // No version key detected; overwrite the save data with latest version
+    else {
         user_data = {
             crate_crafted: 0,
             material_consumed: new Cost(),
             item_crafted: [],
             time_spent: 0,
         };
+
+        storage_instance.setItem(DATA_KEY, JSON.stringify(user_data));
+        storage_instance.setItem(VERSION_KEY, CURRENT_VERSION.toString());
     }
 }
 

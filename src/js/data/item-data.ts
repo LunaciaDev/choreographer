@@ -31,7 +31,7 @@ export const item_data: ItemData[] = [
         },
     },
     {
-        name: '20mm',
+        name: '14.5mm',
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 100,
@@ -245,7 +245,7 @@ export const item_data: ItemData[] = [
         name: '150mm',
         type: ItemType.HEAVY_SHELL,
         cost: {
-            bmat: 150,
+            bmat: 120,
             emat: 0,
             rmat: 0,
             hemat: 60,
@@ -815,8 +815,8 @@ export const item_data: ItemData[] = [
         name: 'Alligator Charge',
         type: ItemType.UTILITIES,
         cost: {
-            bmat: 150,
-            emat: 160,
+            bmat: 100,
+            emat: 80,
             rmat: 0,
             hemat: 0,
         },
@@ -925,6 +925,66 @@ export const item_data: ItemData[] = [
     {
         name: 'Radio',
         type: ItemType.UTILITIES,
+        cost: {
+            bmat: 75,
+            emat: 0,
+            rmat: 0,
+            hemat: 0,
+        },
+    },
+    {
+        name: 'AP/RPG',
+        type: ItemType.HEAVY_ARM,
+        cost: {
+            bmat: 60,
+            emat: 150,
+            rmat: 0,
+            hemat: 0,
+        },
+    },
+    {
+        name: 'Shatter Missle',
+        type: ItemType.HEAVY_ARM,
+        cost: {
+            bmat: 250,
+            emat: 0,
+            rmat: 0,
+            hemat: 250,
+        },
+    },
+    {
+        name: '250mm "Fury" Shell',
+        type: ItemType.HEAVY_ARM,
+        cost: {
+            bmat: 250,
+            emat: 0,
+            rmat: 0,
+            hemat: 200,
+        },
+    },
+    {
+        name: '20mm',
+        type: ItemType.HEAVY_ARM,
+        cost: {
+            bmat: 120,
+            emat: 0,
+            rmat: 0,
+            hemat: 0,
+        },
+    },
+    {
+        name: 'E681-B Hullbreaker Mine',
+        type: ItemType.HEAVY_ARM,
+        cost: {
+            bmat: 120,
+            emat: 35,
+            rmat: 0,
+            hemat: 0,
+        },
+    },
+    {
+        name: 'Liaison Transmitter',
+        type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 75,
             emat: 0,

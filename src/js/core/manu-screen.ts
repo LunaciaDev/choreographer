@@ -30,11 +30,11 @@ let anim_timeouts: number[];
 function add_queue(item_type: ItemType) {
     // [TODO]: Create feedback for clicks
     const item_id = manu_data.add_queue(item_type);
-
-    if (item_id == null) return;
-
-    add_item_card(item_id);
     refresh_buttons();
+
+    if (item_id !== null) {
+        add_item_card(item_id);
+    }
 }
 
 /**

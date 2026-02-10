@@ -1,6 +1,6 @@
 import type { Cost } from './item-cost';
 
-export type UserData = {
+export type UserDataV1 = {
     crate_crafted: number;
     material_consumed: Cost;
     item_crafted: ItemCraftedEntry[];
