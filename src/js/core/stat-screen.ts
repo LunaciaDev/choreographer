@@ -1,5 +1,5 @@
 import { item_data } from '../data/item-data';
-import { duration_to_string } from '../helper';
+import { duration_to_string, number_formatter } from '../helper';
 import { Cost } from '../types/item-cost';
 import type { ManuData } from '../types/manu-data';
 import type { UserDataV1 } from '../types/user-data';
@@ -124,8 +124,9 @@ export namespace StatScreen {
 
         screen_registry.start_config_button.className = 'accent';
 
-        screen_registry.crate_count.innerText =
-            user_data.crate_crafted.toString();
+        screen_registry.crate_count.innerText = number_formatter.format(
+            user_data.crate_crafted
+        );
         screen_registry.time_spent.innerText = duration_to_string(
             user_data.time_spent
         );
@@ -133,14 +134,18 @@ export namespace StatScreen {
             user_data.time_spent / (user_data.crate_crafted / 100)
         );
 
-        screen_registry.bmat_used.innerText =
-            user_data.material_consumed.bmat.toString();
-        screen_registry.emat_used.innerText =
-            user_data.material_consumed.emat.toString();
-        screen_registry.hemat_used.innerText =
-            user_data.material_consumed.hemat.toString();
-        screen_registry.rmat_used.innerText =
-            user_data.material_consumed.rmat.toString();
+        screen_registry.bmat_used.innerText = number_formatter.format(
+            user_data.material_consumed.bmat
+        );
+        screen_registry.emat_used.innerText = number_formatter.format(
+            user_data.material_consumed.emat
+        );
+        screen_registry.hemat_used.innerText = number_formatter.format(
+            user_data.material_consumed.hemat
+        );
+        screen_registry.rmat_used.innerText = number_formatter.format(
+            user_data.material_consumed.rmat
+        );
 
         screen_registry.root_element.className = '';
     }

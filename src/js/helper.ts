@@ -78,7 +78,7 @@ export function duration_to_string(duration: number): string {
         if (duration === 0) break;
     }
 
-    return result.reverse().join(' ');
+    return result.reverse().slice(0, 3).join(' ');
 }
 
 export function get_color_class(item_type: ItemType): string {
@@ -114,3 +114,8 @@ export function get_image_path(item_type: ItemType): string {
             return uniform_img;
     }
 }
+
+export const number_formatter = new Intl.NumberFormat('en-US', {
+    notation: 'compact',
+    maximumSignificantDigits: 4,
+});

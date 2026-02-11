@@ -73,6 +73,11 @@ export namespace LogihubImporter {
         error_manager = new ErrorManager(logihub_registry.error_info);
     }
 
+    export function reset() {
+        error_manager.reset();
+        logihub_input.value = '';
+    }
+
     /**
      * Convert the Logihub export JSON to internal data.
      *

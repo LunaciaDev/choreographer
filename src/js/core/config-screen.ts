@@ -16,6 +16,7 @@ import {
     type ConfigManualInput,
     type ConfigRegistry,
 } from './dom-registry';
+import { LogihubImporter } from './logihub-import';
 import { ManuScreen } from './manu-screen';
 
 let config_data: ConfigData;
@@ -194,6 +195,9 @@ export namespace ConfigScreen {
      * Change the current screen to Config Screen.
      */
     export function show() {
+        error_manager.reset();
+        LogihubImporter.reset();
+
         config_registry.root_element.className = '';
         config_registry.start_manu.className = 'accent';
         DomRegistry.get_title().innerText = 'Config';
