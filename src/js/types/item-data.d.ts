@@ -2,7 +2,7 @@ import { ItemType } from './item-type';
 
 export type ItemData = {
     name: string;
-    logihub_name?: string;
+    alt_names?: string[];
     type: ItemType;
     cost: {
         bmat: number;

@@ -25,8 +25,10 @@ function to_internal(name: string): number {
     for (let id = 0; id < item_data.length; id++) {
         const item = item_data[id];
 
-        if (item.logihub_name === name) {
-            return id;
+        if (item.alt_names !== undefined) {
+            if (item.alt_names.find((val) => val === name) !== undefined) {
+                return id;
+            }
         }
 
         if (item.name === name) {

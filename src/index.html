@@ -52,7 +52,7 @@
     <body>
         <header>
             <div id="app-name">
-                Choreographer v1.0<br />Foxhole 1.63 "Airborne"
+                Choreographer v1.0.1<br />Foxhole 1.63 "Airborne"
             </div>
             <div id="title">Home</div>
             <button id="start-config-button" class="accent">
@@ -109,9 +109,14 @@
             <div id="config-view" class="hidden">
                 <div id="config-logihub-help" class="hidden">
                     <div class="overlay-content">
-                        <h3>How to import warehouse data from Logihub?</h3>
+                        <h3>
+                            How to import warehouse data from Logihub/Shockbot?
+                        </h3>
                         <ol>
-                            <li>In LogiHub, switch to any Factory view.</li>
+                            <li>
+                                Switch to the corresponding factory need view in
+                                Logihub or Shockbot.
+                            </li>
                             <li>
                                 Open Developer Tools on your web browser
                                 (typically <code>Ctrl + Shift + I</code>)
@@ -119,6 +124,8 @@
                             <li>
                                 Copy and run the following JavaScript code into
                                 the Console:
+                                <br />
+                                For Logihub:
                                 <div class="codeblock">
                                     {let res =
                                     [];document.querySelectorAll('app-supply-list-item').forEach((item)
@@ -127,16 +134,33 @@
                                     priorityAndPercentage =
                                     item.querySelector('.card-footer').querySelectorAll('span');obj.name
                                     =
-                                    nameAndAmount[0].innerHTML.trim();obj.amount
+                                    nameAndAmount[0].innerText.trim();obj.amount
                                     =
-                                    parseInt(nameAndAmount[1].innerHTML.trim());obj.priority
+                                    parseInt(nameAndAmount[1].innerText.trim());obj.priority
                                     =
-                                    priorityAndPercentage[0].innerHTML.trim();obj.percentage
-                                    =
-                                    parseInt(priorityAndPercentage[priorityAndPercentage.length
-                                    - 1].innerHTML.trim())/100;if (obj.priority
-                                    === "&nbsp;") obj.priority =
-                                    "-";res.push(obj);});console.log(JSON.stringify(res));}
+                                    priorityAndPercentage[0].innerText.trim();obj.percentage
+                                    =parseInt(priorityAndPercentage[priorityAndPercentage.length
+                                    - 1].innerText.trim()) / 100;if
+                                    (obj.priority.length === 0) { obj.priority =
+                                    "-";
+                                    }res.push(obj);});console.log(JSON.stringify(res));}
+                                </div>
+                                For Shockbot:
+                                <div class="codeblock">
+                                    {let res =
+                                    [];document.querySelector("[role='dialog']").lastChild.lastChild.childNodes.forEach((item)
+                                    => {let obj = {};let name =
+                                    item.querySelector('span').innerText;let
+                                    value =
+                                    item.querySelector('div').innerText.split("/").map((value)
+                                    => parseInt(value));if (value[0] > value[1])
+                                    { return; }if (name === "Maintenance
+                                    Supplies") { return; }if (name === "250mm
+                                    Shell") {name = '250mm "Purity"
+                                    Shell'}obj.name = name;obj.priority =
+                                    "-";obj.amount = value[1] -
+                                    value[0];obj.percentage = value[0] /
+                                    value[1];res.push(obj);});console.log(JSON.stringify(res));}
                                 </div>
                                 The script will:
                                 <ul>
@@ -171,10 +195,12 @@
                 <div id="data-input">
                     <div class="table" id="data-input-table">
                         <div class="table-cell">
-                            <div class="table-header">Import from LogiHub</div>
+                            <div class="table-header">
+                                Import from Logihub/Shockbot
+                            </div>
                             <div class="table-content" id="logihub-input">
                                 <label for="logihub-import-paste"
-                                    >Paste LogiHub export here:</label
+                                    >Paste the exported data here:</label
                                 >
                                 <textarea
                                     id="logihub-import-paste"
@@ -353,6 +379,6 @@
                 <div id="result-item-crafted"></div>
             </div>
         </main>
-        <footer>Choreographer v1.0 -- Foxhole 1.63 "Airborne"</footer>
+        <footer>Choreographer v1.0.1 -- Foxhole 1.63 "Airborne"</footer>
     </body>
 </html>
