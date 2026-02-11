@@ -38,6 +38,7 @@ function sanitize_input() {
     const name = manual_input_registry.item_name.value;
     const raw_priority = manual_input_registry.item_priority.value;
     const raw_amount = manual_input_registry.item_amount.value;
+    const raw_fill_level = manual_input_registry.item_fill_level.value;
 
     if (name === null) {
         error_manager.show('Item name cannot be empty!');
@@ -74,12 +75,14 @@ function sanitize_input() {
         return;
     }
 
-    const priority = Priority.to_priority(raw_priority);
+    const priority = Priority.to_self(raw_priority);
+    const fill_level = FillLevel.to_self(raw_fill_level);
 
     manual_input_registry.item_name.value = '';
     manual_input_registry.item_amount.value = '';
 
-    ConfigScreen.add_item(itemID, priority, amount, FillLevel.CUSTOM, -1);
+    config_data.add_manual_item(itemID, amount, priority, fill_level);
+    refresh_view();
 }
 
 /**
@@ -217,8 +220,8 @@ export namespace ConfigScreen {
      * @param id The item's internal ID
      * @param priority The item's priority
      * @param amount The amount to manu
-     * @param fill_level The fill level reported by LogiHub; User-submission always has fill level CUSTOM.
-     * @param fill_amount How much of the item is filled right now; Value is undefined for CUSTOM level
+     * @param fill_level The fill level reported by LogiHub
+     * @param fill_amount How much of the item is filled right now
      */
     export function add_item(
         id: number,

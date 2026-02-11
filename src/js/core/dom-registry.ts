@@ -2,6 +2,7 @@ export type ConfigManualInput = {
     item_name: HTMLInputElement;
     item_datalist: HTMLDataListElement;
     item_priority: HTMLSelectElement;
+    item_fill_level: HTMLSelectElement;
     item_amount: HTMLInputElement;
     error_info: HTMLElement;
     submit_button: HTMLButtonElement;
@@ -130,6 +131,9 @@ export namespace DomRegistry {
                 item_datalist: get_element_reference(
                     'item-names-list'
                 ) as HTMLDataListElement,
+                item_fill_level: get_element_reference(
+                    'current-fill-level'
+                ) as HTMLSelectElement,
                 item_priority: get_element_reference(
                     'priority'
                 ) as HTMLSelectElement,
