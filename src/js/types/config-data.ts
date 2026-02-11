@@ -23,6 +23,16 @@ export class ConfigData {
         });
     }
 
+    add_manual_item(
+        id: number,
+        amount: number,
+        priority: Priority,
+        fill_level: FillLevel
+    ) {
+        this.data[fill_level][id].amount = amount;
+        this.data[fill_level][id].priority = priority;
+    }
+
     add_item(
         id: number,
         amount: number,
@@ -48,12 +58,6 @@ export class ConfigData {
                     FillLevel.LOW,
                     0.25
                 );
-                break;
-            }
-            case FillLevel.CUSTOM: {
-                // User-made custom level; will always be crafted in full after all LOW level req is fulfilled
-                this.data[fill_level][id].amount = amount;
-                this.data[fill_level][id].priority = priority;
                 break;
             }
             case FillLevel.LOW: {

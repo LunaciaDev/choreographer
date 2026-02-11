@@ -1,6 +1,5 @@
 export enum FillLevel {
     CRITICAL,
-    CUSTOM,
     LOW,
     OK,
 }
@@ -21,12 +20,25 @@ export namespace FillLevel {
         switch (fill_level) {
             case FillLevel.CRITICAL:
                 return 'Critical';
-            case FillLevel.CUSTOM:
-                return 'User';
             case FillLevel.LOW:
                 return 'Low';
             case FillLevel.OK:
                 return 'Okay-ish';
+            default:
+                throw new Error('Invalid FillLevel was passed in');
+        }
+    }
+
+    export function to_self(fill_level: string): FillLevel {
+        switch (fill_level) {
+            case 'critical':
+                return FillLevel.CRITICAL;
+            case 'low':
+                return FillLevel.LOW;
+            case 'okayish':
+                return FillLevel.OK;
+            default:
+                throw new Error('Invalid fill_level string');
         }
     }
 }

@@ -14,7 +14,7 @@ export namespace Priority {
      * @argument priority String of the priority value
      * @return Corresponding priority value, or undefined
      */
-    export function to_priority(priority: string): Priority {
+    export function to_self(priority: string): Priority {
         switch (priority) {
             case '-':
                 return Priority.NO_PRIORITY;

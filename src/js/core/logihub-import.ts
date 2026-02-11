@@ -93,7 +93,7 @@ export namespace LogihubImporter {
 
             for (const item of items) {
                 const id = to_internal(item.name);
-                const priority = Priority.to_priority(item.priority);
+                const priority = Priority.to_self(item.priority);
                 let fill_level: FillLevel;
 
                 if (item.percentage <= 0.25) {
