@@ -179,50 +179,73 @@ input[type=number]::-webkit-outer-spin-button
     -webkit-appearance: none
 
 .table
-    display: grid
-    margin: 0 auto 1rem auto
-
-.table-cell
     display: flex
-    flex-direction: column
-    padding: 0 5px
+    flex-wrap: wrap
+    margin: 1rem auto
+    gap: 1rem
 
-.table-cell:not(:last-child)
-    border-right: 2px solid $sapphire
+.table-item
+    flex: 1 1 0px
+    background-color: $crust
+    border-radius: 5px
+    padding: 1rem
 
-.table-header
-    margin-top: auto
-    margin-bottom: 0.5rem
+.item-value
+    margin-bottom: 0.2rem
+    font-size: 2rem
+    font-weight: bold
     text-align: center
+    color: $mauve
 
-.table-content
-    margin-top: auto
+.item-description
     text-align: center
 
 #stat-basic
     width: 60vw
-    min-width: 700px
-    grid-template-columns: 1fr 1fr 1fr
+
+    .table-item
+        min-width: 240px
 
 #stat-material
     width: 60vw
-    min-width: 700px
-    grid-template-columns: 1fr 1fr 1fr 1fr
+
+    .table-item
+        min-width: 175px
 
 #manu-info-table
-    grid-template-columns: 1fr 1fr 1fr
     width: 100%
 
-#result-table
-    grid-template-columns: 1fr 1fr
+    .item-value
+        font-size: 1.3rem
+        font-weight: normal
+        color: $text
 
 #data-input-table
+    display: grid
     grid-template-columns: 1fr 1fr
     width: 100%
 
-    .table-header
-        margin-top: 0
+    .table-item
+        padding: 0
+        background-color: unset
+        border-radius: 0
+
+    .table-item:first-child
+        border-right: 2px solid $sky
+        display: flex
+        flex-direction: column
+
+    .item-description
         font-weight: bold
+        font-size: 1.5rem
+
+    .item-value
+        font-size: 1rem
+        font-weight: normal
+        color: $text
+
+#result-table
+    width: 50vw
 
 select
     background-color: $crust
@@ -260,6 +283,7 @@ select
     margin-left: 1rem
 
 #logihub-import-button-group
+    width: fit-content
     margin: 1rem auto 0 auto
 
 #logihub-input
@@ -468,35 +492,33 @@ select
     #manu-view
         width: 75vw
 
+    #result-table
+        width: 75vw
+
 @media (max-width: 700px)
     #stat-material
-        width: fit-content
-        min-width: 0
+        width: 95vw
 
-    #stat-basic, #data-input-table
-        width: fit-content
-        min-width: 0
-        grid-template-columns: none
-        grid-template-rows: 1fr
-
-        .table-cell:not(:last-child)
-            border-right: none
-            border-bottom: 2px solid $sapphire
-
-        .table-content
-            padding-bottom: 0.75rem
-
-        .table-header
-            padding-top: 0.75rem
+    #stat-basic
+        width: 95vw
 
         #logihub-input textarea
             min-height: 10ch
+
+    #data-input-table
+        width: fit-content
+        grid-template-columns: 1fr
+        grid-template-rows: 1fr 1fr
+
+        .table-item:first-child
+            border-right: none
+            border-bottom: 2px solid $sapphire
 
     #data-input-table #logihub-import-button-group
         margin-bottom: 1.5rem
 
     #manu-view
-        width: 100vw
+        width: 95vw
 
 @media (max-width: 450px)
     #app-name

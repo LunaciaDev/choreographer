@@ -66,42 +66,40 @@
             <div id="stat-view" class="">
                 <h2 class="stat-header">Lifetime Statistics</h2>
                 <div id="stat-basic" class="table">
-                    <div class="table-cell">
-                        <div class="table-header">Total Crate Manufactured</div>
-                        <div class="table-content" id="stat-crate-count"></div>
+                    <div class="table-item">
+                        <div class="item-value" id="stat-crate-count"></div>
+                        <div class="item-description">crates manufactured</div>
                     </div>
-                    <div class="table-cell">
-                        <div class="table-header">Time Spent Manufacturing</div>
-                        <div class="table-content" id="stat-time-spent"></div>
+                    <div class="table-item">
+                        <div class="item-value" id="stat-time-spent"></div>
+                        <div class="item-description">spent manufacturing</div>
                     </div>
-                    <div class="table-cell">
-                        <div class="table-header">
-                            Average time / 100 crates
-                        </div>
+                    <div class="table-item">
                         <div
-                            class="table-content"
+                            class="item-value"
                             id="stat-time-hundred-crate"
                         ></div>
+                        <div class="item-description">
+                            to manufacture 100 crates
+                        </div>
                     </div>
                 </div>
-                <h3 class="stat-header">Material Consumed</h3>
                 <div id="stat-material" class="table">
-                    <div class="table-cell">
-                        <div class="table-header">Basic Material</div>
-
-                        <div class="table-content" id="stat-bmat-used"></div>
+                    <div class="table-item">
+                        <div class="item-value" id="stat-bmat-used"></div>
+                        <div class="item-description">bmat consumed</div>
                     </div>
-                    <div class="table-cell">
-                        <div class="table-header">Explosive Material</div>
-                        <div class="table-content" id="stat-emat-used"></div>
+                    <div class="table-item">
+                        <div class="item-value" id="stat-emat-used"></div>
+                        <div class="item-description">emat consumed</div>
                     </div>
-                    <div class="table-cell">
-                        <div class="table-header">Heavy Explosive Material</div>
-                        <div class="table-content" id="stat-hemat-used"></div>
+                    <div class="table-item">
+                        <div class="item-value" id="stat-hemat-used"></div>
+                        <div class="item-description">hemat consumed</div>
                     </div>
-                    <div class="table-cell">
-                        <div class="table-header">Refined Material</div>
-                        <div class="table-content" id="stat-rmat-used"></div>
+                    <div class="table-item">
+                        <div class="item-value" id="stat-rmat-used"></div>
+                        <div class="item-description">rmat consumed</div>
                     </div>
                 </div>
                 <button id="stat-reset">Reset Statistics</button>
@@ -194,11 +192,11 @@
                 </div>
                 <div id="data-input">
                     <div class="table" id="data-input-table">
-                        <div class="table-cell">
-                            <div class="table-header">
+                        <div class="table-item">
+                            <div class="item-description">
                                 Import from Logihub/Shockbot
                             </div>
-                            <div class="table-content" id="logihub-input">
+                            <div class="item-value" id="logihub-input">
                                 <label for="logihub-import-paste"
                                     >Paste the exported data here:</label
                                 >
@@ -207,10 +205,7 @@
                                     name="logihub-import-paste"
                                 ></textarea>
                             </div>
-                            <div
-                                class="error-popup"
-                                id="logihub-import-error"
-                            ></div>
+                            <div class="hidden" id="logihub-import-error"></div>
                             <div id="logihub-import-button-group">
                                 <button
                                     class="accent"
@@ -221,9 +216,9 @@
                                 <button id="config-show-logihub-help">?</button>
                             </div>
                         </div>
-                        <div class="table-cell">
-                            <div class="table-header">Manual Entry</div>
-                            <div class="table-content" id="manual-input">
+                        <div class="table-item">
+                            <div class="item-description">Manual Entry</div>
+                            <div class="item-value" id="manual-input">
                                 <label for="item-name">Item name:</label>
                                 <input
                                     id="item-name"
@@ -248,7 +243,7 @@
                                     min="0"
                                 />
                                 <div
-                                    class="error-popup"
+                                    class="hidden"
                                     id="manual-import-error"
                                 ></div>
                                 <button class="accent" id="submit-item-button">
@@ -262,17 +257,17 @@
             </div>
             <div id="manu-view" class="hidden">
                 <div class="table" id="manu-info-table">
-                    <div class="table-cell">
-                        <div class="table-header">Crate Crafted</div>
-                        <div class="table-content" id="crate-crafted"></div>
+                    <div class="table-item">
+                        <div class="item-value" id="crate-crafted"></div>
+                        <div class="item-description">crates manufactured</div>
                     </div>
-                    <div class="table-cell">
-                        <div class="table-header">Material Needed</div>
-                        <div class="table-content" id="cost-to-craft"></div>
+                    <div class="table-item">
+                        <div class="item-value" id="cost-to-craft"></div>
+                        <div class="item-description">needed to set queues</div>
                     </div>
-                    <div class="table-cell">
-                        <div class="table-header">Time Elapsed</div>
-                        <div class="table-content" id="time-spent"></div>
+                    <div class="table-item">
+                        <div class="item-value" id="time-spent"></div>
+                        <div class="item-description">since session start</div>
                     </div>
                 </div>
                 <div id="requirement-view">
@@ -374,16 +369,16 @@
             </div>
             <div id="result-view" class="hidden">
                 <div class="table" id="result-table">
-                    <div class="table-cell">
-                        <div class="table-header">Time Spent</div>
-                        <div class="table-content" id="result-time"></div>
+                    <div class="table-item">
+                        <div class="item-value" id="result-time"></div>
+                        <div class="item-description">spent manufacturing</div>
                     </div>
-                    <div class="table-cell">
-                        <div class="table-header">Total Crates</div>
-                        <div class="table-content" id="result-crate"></div>
+                    <div class="table-item">
+                        <div class="item-value" id="result-crate"></div>
+                        <div class="item-description">crates manufactured</div>
                     </div>
                 </div>
-                <div class="result-hd">Crates Manufactured</div>
+                <div class="result-hd">Crates Made</div>
                 <div id="result-item-crafted"></div>
             </div>
         </main>
