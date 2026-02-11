@@ -4,6 +4,7 @@ import {
     get_image_path,
     get_template_elements,
 } from '../helper';
+import { ErrorManager } from '../managers/error-manager';
 import { ConfigData } from '../types/config-data';
 import { FillLevel } from '../types/fill-level';
 import { Cost } from '../types/item-cost';
@@ -20,6 +21,7 @@ import { ManuScreen } from './manu-screen';
 let config_data: ConfigData;
 let config_registry: ConfigRegistry;
 let manual_input_registry: ConfigManualInput;
+let error_manager: ErrorManager;
 
 /**
  * As inputs are hinted, but not enforced, we need to double check
@@ -36,15 +38,20 @@ function sanitize_input() {
     const raw_priority = manual_input_registry.item_priority.value;
     const raw_amount = manual_input_registry.item_amount.value;
 
-    if (name === null || raw_amount === null) {
-        // [TODO]: show something in the UI
+    if (name === null) {
+        error_manager.show('Item name cannot be empty!');
+        return;
+    }
+
+    if (raw_amount === null) {
+        error_manager.show('Item amount cannot be empty!');
         return;
     }
 
     const amount = parseInt(raw_amount);
 
     if (amount <= 0 || isNaN(amount)) {
-        // [TODO]: show something in the UI
+        error_manager.show('Item amount is not a number!');
         return;
     }
 
@@ -60,7 +67,9 @@ function sanitize_input() {
     }
 
     if (itemID === undefined) {
-        // [TODO]: show something in the UI
+        error_manager.show(
+            'Cannot find the item in the item definition list. Maybe a bug?'
+        );
         return;
     }
 
@@ -158,10 +167,10 @@ export namespace ConfigScreen {
         config_registry = DomRegistry.get_config_registry();
 
         manual_input_registry = config_registry.manual_input;
-        manual_input_registry.submit_button.addEventListener(
-            'click',
-            sanitize_input
-        );
+        manual_input_registry.submit_button.addEventListener('click', () => {
+            error_manager.reset();
+            sanitize_input();
+        });
 
         // Populate item name input with possible options
         for (const item of item_data.values()) {
@@ -175,6 +184,10 @@ export namespace ConfigScreen {
             config_registry.root_element.className = 'hidden';
             ManuScreen.show(config_data);
         });
+
+        error_manager = new ErrorManager(
+            config_registry.manual_input.error_info
+        );
     }
 
     /**

@@ -1,10 +1,12 @@
 import { item_data } from '../data/item-data';
+import { ErrorManager } from '../managers/error-manager';
 import { FillLevel } from '../types/fill-level';
 import { Priority } from '../types/priority';
 import { ConfigScreen } from './config-screen';
 import { DomRegistry } from './dom-registry';
 
 let logihub_input: HTMLTextAreaElement;
+let error_manager: ErrorManager;
 
 type LoghubItem = {
     name: string;
@@ -36,6 +38,9 @@ function to_internal(name: string): number {
         }
     }
 
+    error_manager.show(
+        `Failed to translate ${name} to internal id; Most likely a bug!`
+    );
     throw new Error(`Failed to translate ${name} to internal id`);
 }
 
@@ -49,7 +54,10 @@ export namespace LogihubImporter {
         const logihub_registry =
             DomRegistry.get_config_registry().logihub_input;
         logihub_input = logihub_registry.input;
-        logihub_registry.submit_button.addEventListener('click', import_items);
+        logihub_registry.submit_button.addEventListener('click', () => {
+            error_manager.reset();
+            import_items();
+        });
 
         logihub_registry.logihub_help.addEventListener('click', (event) => {
             if (event.target !== logihub_registry.logihub_help) {
@@ -61,6 +69,8 @@ export namespace LogihubImporter {
         logihub_registry.show_logihub_help.addEventListener('click', () => {
             logihub_registry.logihub_help.className = 'overlay';
         });
+
+        error_manager = new ErrorManager(logihub_registry.error_info);
     }
 
     /**
@@ -101,10 +111,14 @@ export namespace LogihubImporter {
             logihub_input.value = '';
         } catch (e) {
             if (e instanceof SyntaxError) {
-                // [TODO]: Show something in the UI.
-                // This exception is for failed JSON parsing.
+                error_manager.show(
+                    'The export is malformed. Please check if you have copied everything.'
+                );
                 return;
             } else {
+                error_manager.show(
+                    'Something very wrong happened. Please send Lunacia the console log, if possible.'
+                );
                 throw e;
             }
         }
