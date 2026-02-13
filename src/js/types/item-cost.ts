@@ -24,7 +24,7 @@ export class Cost {
         this.rmat += cost.rmat * 4;
     }
 
-    multiply(
+    add_multiple(
         amount: number,
         cost: { bmat: number; emat: number; hemat: number; rmat: number }
     ) {

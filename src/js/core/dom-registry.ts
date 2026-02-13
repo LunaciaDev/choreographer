@@ -70,6 +70,11 @@ export type ResultRegistry = {
     time_spent: HTMLElement;
     crate_crafted: HTMLElement;
     item_crafted: HTMLElement;
+    bmat_used: HTMLElement;
+    emat_used: HTMLElement;
+    rmat_used: HTMLElement;
+    hemat_used: HTMLElement;
+    carrier_equivalent: HTMLElement;
     return_button: HTMLButtonElement;
     item_card_template: HTMLTemplateElement;
 };
@@ -234,6 +239,13 @@ export namespace DomRegistry {
             item_card_template: get_element_reference(
                 'result-item-card'
             ) as HTMLTemplateElement,
+            bmat_used: get_element_reference('result-bmat-used'),
+            emat_used: get_element_reference('result-emat-used'),
+            rmat_used: get_element_reference('result-rmat-used'),
+            carrier_equivalent: get_element_reference(
+                'result-container-equivalent'
+            ),
+            hemat_used: get_element_reference('result-hemat-used'),
         };
         stat_registry = {
             stat_io: {
