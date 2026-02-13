@@ -99,7 +99,7 @@ export class ConfigData {
                 };
             })
             .filter((value): boolean => {
-                return value.amount != -1;
+                return value.amount > 0;
             })
             .sort((a, b) => {
                 // First sort by priority, then by amount.
@@ -115,7 +115,7 @@ export class ConfigData {
         this.data = FillLevel.get_iterator().map(() => {
             return item_data.map((): ConfigItem => {
                 return {
-                    amount: -1,
+                    amount: 0,
                     priority: Priority.NO_PRIORITY,
                 };
             });
