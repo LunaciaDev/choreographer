@@ -68,6 +68,32 @@ export namespace ResultScreen {
             total_cost.rmat
         );
 
+        if (amount_crafted > 720) {
+            result_registry.carrier_equivalent.innerText = (
+                amount_crafted / 720
+            )
+                .toFixed(1)
+                .toString()
+                .concat(' trains');
+        } else if (amount_crafted > 300) {
+            result_registry.carrier_equivalent.innerText = (
+                amount_crafted / 300
+            )
+                .toFixed(1)
+                .toString()
+                .concat(' freighters');
+        } else if (amount_crafted > 60) {
+            result_registry.carrier_equivalent.innerText = (amount_crafted / 60)
+                .toFixed(1)
+                .toString()
+                .concat(' flatbeds');
+        } else {
+            result_registry.carrier_equivalent.innerText = (amount_crafted / 15)
+                .toFixed(1)
+                .toString()
+                .concat(' trucks');
+        }
+
         function add_line(item_id: number, amount: number) {
             const item = item_data[item_id];
             if (item === undefined) return;
