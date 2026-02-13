@@ -211,7 +211,7 @@ export namespace StatScreen {
 
         manu_data.data.forEach((row) => {
             row.filter((item) => item.crafted_amount !== 0).forEach((item) => {
-                user_data.material_consumed.multiply(
+                user_data.material_consumed.add_multiple(
                     item.crafted_amount,
                     item_data[item.id].cost
                 );

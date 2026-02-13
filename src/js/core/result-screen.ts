@@ -3,7 +3,9 @@ import {
     get_color_class,
     get_image_path,
     get_template_elements,
+    number_formatter,
 } from '../helper';
+import { Cost } from '../types/item-cost';
 import type { ManuData } from '../types/manu-data';
 import { DomRegistry, type ResultRegistry } from './dom-registry';
 import { StatScreen } from './stat-screen';
@@ -40,14 +42,31 @@ export namespace ResultScreen {
         DomRegistry.get_title().innerText = 'Result';
 
         const amount_crafted = manu_data.crate_crafted;
+        const total_cost = new Cost();
 
         manu_data.data.forEach((row) => {
-            row.filter((item) => item.crafted_amount !== 0).forEach((item) =>
-                add_line(item.id, item.crafted_amount)
-            );
+            row.filter((item) => item.crafted_amount !== 0).forEach((item) => {
+                total_cost.add_multiple(
+                    item.crafted_amount,
+                    item_data[item.id].cost
+                );
+                add_line(item.id, item.crafted_amount);
+            });
         });
 
         result_registry.crate_crafted.innerText = amount_crafted.toString();
+        result_registry.bmat_used.innerText = number_formatter.format(
+            total_cost.bmat
+        );
+        result_registry.emat_used.innerText = number_formatter.format(
+            total_cost.emat
+        );
+        result_registry.hemat_used.innerText = number_formatter.format(
+            total_cost.hemat
+        );
+        result_registry.rmat_used.innerText = number_formatter.format(
+            total_cost.rmat
+        );
 
         function add_line(item_id: number, amount: number) {
             const item = item_data[item_id];
