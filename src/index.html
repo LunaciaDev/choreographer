@@ -64,6 +64,33 @@
         </header>
         <main>
             <div id="stat-view" class="">
+                <div id="stat-import-export-overlay" class="hidden">
+                    <div class="overlay-content">
+                        <div id="stat-import-data">
+                            <h3>Import Data</h3>
+                            <label for="stat-import-data-input"
+                                >Paste user data here:</label
+                            >
+                            <textarea id="stat-import-data-input"></textarea>
+                            <div class="hidden" id="stat-import-error"></div>
+                            <button id="stat-import-confirm">Import</button>
+                        </div>
+                        <div id="stat-export-data">
+                            <h3>Export Data</h3>
+                            <label for="stat-export-data-output"
+                                >Your user data is here for copying:</label
+                            >
+                            <textarea
+                                id="stat-export-data-output"
+                                readonly
+                            ></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div id="stat-button-group" class="group">
+                    <button id="import-export-stat">Import/Export Data</button>
+                    <button id="stat-reset">Reset Statistics</button>
+                </div>
                 <h2 class="stat-header">Lifetime Statistics</h2>
                 <div id="stat-basic" class="table">
                     <div class="table-item">
@@ -102,7 +129,6 @@
                         <div class="item-description">rmat consumed</div>
                     </div>
                 </div>
-                <button id="stat-reset">Reset Statistics</button>
             </div>
             <div id="config-view" class="hidden">
                 <div id="config-logihub-help" class="hidden">

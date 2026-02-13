@@ -2,9 +2,11 @@ import { item_data } from '../data/item-data';
 import { duration_to_string, number_formatter } from '../helper';
 import { Cost } from '../types/item-cost';
 import type { ManuData } from '../types/manu-data';
-import type { UserDataV1 } from '../types/user-data';
+import type { ExportData, UserDataV1 } from '../types/user-data';
 import { ConfigScreen } from './config-screen';
-import { DomRegistry } from './dom-registry';
+import { DomRegistry, type StatRegistry } from './dom-registry';
+
+let stat_registry: StatRegistry;
 
 let enable_local_storage: boolean;
 let user_data: UserDataV1;
@@ -31,15 +33,9 @@ function is_local_storage_available(): boolean {
     }
 }
 
-function load_user_data() {
-    const storage_instance = window.localStorage;
-    const raw_user_data = storage_instance.getItem(DATA_KEY);
-    const version_data = storage_instance.getItem(VERSION_KEY);
-
-    if (version_data !== null) {
-        // Load the data based on version key.
-        // Right now only key is v1.0 so it's fine to not have specialists
-        if (raw_user_data !== null) {
+function load_user_data(raw_user_data: string, version_data: number) {
+    switch (version_data) {
+        case 1: {
             user_data = JSON.parse(raw_user_data) as UserDataV1;
 
             // casting Object to Cost
@@ -49,51 +45,24 @@ function load_user_data() {
             cost.rmat = user_data.material_consumed.rmat;
             cost.hemat = user_data.material_consumed.hemat;
             user_data.material_consumed = cost;
-        } else {
-            user_data = {
-                crate_crafted: 0,
-                material_consumed: new Cost(),
-                item_crafted: [],
-                time_spent: 0,
-            };
+            break;
         }
-    }
-    // No version key detected; overwrite the save data with latest version
-    else {
-        user_data = {
-            crate_crafted: 0,
-            material_consumed: new Cost(),
-            item_crafted: [],
-            time_spent: 0,
-        };
 
-        storage_instance.setItem(DATA_KEY, JSON.stringify(user_data));
-        storage_instance.setItem(VERSION_KEY, CURRENT_VERSION.toString());
+        default:
+            throw new Error('Unexpected version number');
     }
 }
 
 export namespace StatScreen {
     export function init(): void {
         enable_local_storage = is_local_storage_available();
+        stat_registry = DomRegistry.get_stat_registry();
 
         if (enable_local_storage) {
-            load_user_data();
-        }
+            const version = window.localStorage.getItem(VERSION_KEY);
+            const data = window.localStorage.getItem(DATA_KEY);
 
-        DomRegistry.get_stat_registry().start_config_button.addEventListener(
-            'click',
-            () => {
-                DomRegistry.get_stat_registry().start_config_button.className =
-                    'hidden';
-                DomRegistry.get_stat_registry().root_element.className =
-                    'hidden';
-                ConfigScreen.show();
-            }
-        );
-
-        DomRegistry.get_stat_registry().reset_stat_button.addEventListener(
-            'click',
-            () => {
+            if (version === null || data === null) {
                 user_data = {
                     crate_crafted: 0,
                     material_consumed: new Cost(),
@@ -101,53 +70,126 @@ export namespace StatScreen {
                     time_spent: 0,
                 };
 
-                if (enable_local_storage) {
-                    const data_string = JSON.stringify(user_data);
+                window.localStorage.setItem(
+                    DATA_KEY,
+                    JSON.stringify(user_data)
+                );
+                window.localStorage.setItem(
+                    VERSION_KEY,
+                    CURRENT_VERSION.toString()
+                );
+            } else {
+                load_user_data(data, parseInt(version));
+            }
+        }
 
-                    // Block unnecessary writes
-                    if (window.localStorage.getItem(DATA_KEY) !== data_string) {
-                        window.localStorage.setItem(
-                            DATA_KEY,
-                            JSON.stringify(user_data)
-                        );
-                    }
+        stat_registry.start_config_button.addEventListener('click', () => {
+            stat_registry.start_config_button.className = 'hidden';
+            stat_registry.root_element.className = 'hidden';
+            ConfigScreen.show();
+        });
+
+        stat_registry.stat_io.overlay_element.addEventListener(
+            'click',
+            (event) => {
+                if (event.target !== stat_registry.stat_io.overlay_element) {
+                    return;
                 }
 
-                show();
+                stat_registry.stat_io.overlay_element.className = 'hidden';
             }
         );
+
+        stat_registry.stat_io.input_confirm_button.addEventListener(
+            'click',
+            () => {
+                try {
+                    const raw_data = JSON.parse(
+                        stat_registry.stat_io.data_input.value
+                    ) as ExportData;
+                    load_user_data(raw_data.data, raw_data.version);
+                    window.localStorage.setItem(
+                        DATA_KEY,
+                        JSON.stringify(user_data)
+                    );
+                    window.localStorage.setItem(
+                        VERSION_KEY,
+                        CURRENT_VERSION.toString()
+                    );
+                    StatScreen.show();
+                    stat_registry.stat_io.overlay_element.className = 'hidden';
+                } catch {
+                    stat_registry.stat_io.import_error.innerText =
+                        'Something went wrong with your data...?';
+                    stat_registry.stat_io.import_error.className =
+                        'error-popup';
+                }
+            }
+        );
+
+        stat_registry.stat_io.show_statio.addEventListener('click', () => {
+            stat_registry.stat_io.overlay_element.className = 'overlay';
+            stat_registry.stat_io.import_error.className = 'hidden';
+            stat_registry.stat_io.data_input.value = '';
+            stat_registry.stat_io.data_output.value = JSON.stringify({
+                version: CURRENT_VERSION,
+                data: JSON.stringify(user_data),
+            });
+        });
+
+        stat_registry.reset_stat_button.addEventListener('click', () => {
+            user_data = {
+                crate_crafted: 0,
+                material_consumed: new Cost(),
+                item_crafted: [],
+                time_spent: 0,
+            };
+
+            if (enable_local_storage) {
+                const data_string = JSON.stringify(user_data);
+
+                // Block unnecessary writes
+                if (window.localStorage.getItem(DATA_KEY) !== data_string) {
+                    window.localStorage.setItem(
+                        DATA_KEY,
+                        JSON.stringify(user_data)
+                    );
+                }
+            }
+
+            show();
+        });
     }
 
     export function show(): void {
-        const screen_registry = DomRegistry.get_stat_registry();
         DomRegistry.get_title().innerText = 'Home';
 
-        screen_registry.start_config_button.className = 'accent';
+        stat_registry.start_config_button.className = 'accent';
 
-        screen_registry.crate_count.innerText = number_formatter.format(
+        stat_registry.crate_count.innerText = number_formatter.format(
             user_data.crate_crafted
         );
-        screen_registry.time_spent.innerText = duration_to_string(
+        stat_registry.time_spent.innerText = duration_to_string(
             user_data.time_spent
         );
-        screen_registry.time_to_hundred_crate.innerText = duration_to_string(
+        stat_registry.time_to_hundred_crate.innerText = duration_to_string(
             user_data.time_spent / (user_data.crate_crafted / 100)
         );
 
-        screen_registry.bmat_used.innerText = number_formatter.format(
+        stat_registry.bmat_used.innerText = number_formatter.format(
             user_data.material_consumed.bmat
         );
-        screen_registry.emat_used.innerText = number_formatter.format(
+        stat_registry.emat_used.innerText = number_formatter.format(
             user_data.material_consumed.emat
         );
-        screen_registry.hemat_used.innerText = number_formatter.format(
+        stat_registry.hemat_used.innerText = number_formatter.format(
             user_data.material_consumed.hemat
         );
-        screen_registry.rmat_used.innerText = number_formatter.format(
+        stat_registry.rmat_used.innerText = number_formatter.format(
             user_data.material_consumed.rmat
         );
 
-        screen_registry.root_element.className = '';
+        stat_registry.root_element.className = '';
     }
 
     /**

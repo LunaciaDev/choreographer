@@ -31,8 +31,6 @@ let error_manager: ErrorManager;
  * - Name has to be one of the item's name.
  * - Priority has to be one of the possible value.
  * - Amount must be integer > 0.
- *
- * [TODO]: Create responses based on the sanitization result
  */
 function sanitize_input() {
     const name = manual_input_registry.item_name.value;

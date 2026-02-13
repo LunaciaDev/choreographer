@@ -76,6 +76,7 @@ export type ResultRegistry = {
 
 export type StatRegistry = {
     root_element: HTMLElement;
+    stat_io: StatIO;
     start_config_button: HTMLButtonElement;
     reset_stat_button: HTMLButtonElement;
     crate_count: HTMLElement;
@@ -85,6 +86,15 @@ export type StatRegistry = {
     emat_used: HTMLElement;
     hemat_used: HTMLElement;
     rmat_used: HTMLElement;
+};
+
+export type StatIO = {
+    data_input: HTMLTextAreaElement;
+    show_statio: HTMLButtonElement;
+    import_error: HTMLElement;
+    input_confirm_button: HTMLButtonElement;
+    data_output: HTMLTextAreaElement;
+    overlay_element: HTMLElement;
 };
 
 function get_element_reference(id: string): HTMLElement {
@@ -226,6 +236,24 @@ export namespace DomRegistry {
             ) as HTMLTemplateElement,
         };
         stat_registry = {
+            stat_io: {
+                show_statio: get_element_reference(
+                    'import-export-stat'
+                ) as HTMLButtonElement,
+                data_input: get_element_reference(
+                    'stat-import-data-input'
+                ) as HTMLTextAreaElement,
+                data_output: get_element_reference(
+                    'stat-export-data-output'
+                ) as HTMLTextAreaElement,
+                import_error: get_element_reference('stat-import-error'),
+                input_confirm_button: get_element_reference(
+                    'stat-import-confirm'
+                ) as HTMLButtonElement,
+                overlay_element: get_element_reference(
+                    'stat-import-export-overlay'
+                ),
+            },
             start_config_button: get_element_reference(
                 'start-config-button'
             ) as HTMLButtonElement,
