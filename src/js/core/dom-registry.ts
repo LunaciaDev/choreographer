@@ -84,7 +84,6 @@ export type StatRegistry = {
     stat_io: StatIO;
     stat_current_war: StatCurrentWar;
     start_config_button: HTMLButtonElement;
-    reset_stat_button: HTMLButtonElement;
     crate_count: HTMLElement;
     time_spent: HTMLElement;
     time_to_hundred_crate: HTMLElement;
@@ -110,6 +109,7 @@ export type StatIO = {
     import_error: HTMLElement;
     input_confirm_button: HTMLButtonElement;
     data_output: HTMLTextAreaElement;
+    reset_data_output: HTMLTextAreaElement;
     overlay_element: HTMLElement;
 };
 
@@ -276,6 +276,9 @@ export namespace DomRegistry {
                 overlay_element: get_element_reference(
                     'stat-import-export-overlay'
                 ),
+                reset_data_output: get_element_reference(
+                    'stat-reset-data-output'
+                ) as HTMLTextAreaElement,
             },
             stat_current_war: {
                 crate_count: get_element_reference('stat-war-crate-count'),
@@ -290,9 +293,6 @@ export namespace DomRegistry {
             },
             start_config_button: get_element_reference(
                 'start-config-button'
-            ) as HTMLButtonElement,
-            reset_stat_button: get_element_reference(
-                'stat-reset'
             ) as HTMLButtonElement,
             root_element: get_element_reference('stat-view'),
             crate_count: get_element_reference('stat-crate-count'),

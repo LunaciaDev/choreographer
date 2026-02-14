@@ -171,24 +171,9 @@ export namespace StatScreen {
                 version: CURRENT_VERSION,
                 data: JSON.stringify(user_data),
             });
-        });
-
-        stat_registry.reset_stat_button.addEventListener('click', () => {
-            user_data = make_empty_user_data();
-
-            if (enable_local_storage) {
-                const data_string = JSON.stringify(user_data);
-
-                // Block unnecessary writes
-                if (window.localStorage.getItem(DATA_KEY) !== data_string) {
-                    window.localStorage.setItem(
-                        DATA_KEY,
-                        JSON.stringify(user_data)
-                    );
-                }
-            }
-
-            show();
+            stat_registry.stat_io.reset_data_output.value = JSON.stringify(
+                make_empty_user_data()
+            );
         });
     }
 
