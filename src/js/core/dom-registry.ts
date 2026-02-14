@@ -82,8 +82,19 @@ export type ResultRegistry = {
 export type StatRegistry = {
     root_element: HTMLElement;
     stat_io: StatIO;
+    stat_current_war: StatCurrentWar;
     start_config_button: HTMLButtonElement;
-    reset_stat_button: HTMLButtonElement;
+    crate_count: HTMLElement;
+    time_spent: HTMLElement;
+    time_to_hundred_crate: HTMLElement;
+    bmat_used: HTMLElement;
+    emat_used: HTMLElement;
+    hemat_used: HTMLElement;
+    rmat_used: HTMLElement;
+};
+
+export type StatCurrentWar = {
+    reset_current_war: HTMLButtonElement;
     crate_count: HTMLElement;
     time_spent: HTMLElement;
     time_to_hundred_crate: HTMLElement;
@@ -99,6 +110,7 @@ export type StatIO = {
     import_error: HTMLElement;
     input_confirm_button: HTMLButtonElement;
     data_output: HTMLTextAreaElement;
+    reset_data_output: HTMLTextAreaElement;
     overlay_element: HTMLElement;
 };
 
@@ -265,12 +277,26 @@ export namespace DomRegistry {
                 overlay_element: get_element_reference(
                     'stat-import-export-overlay'
                 ),
+                reset_data_output: get_element_reference(
+                    'stat-reset-data-output'
+                ) as HTMLTextAreaElement,
+            },
+            stat_current_war: {
+                reset_current_war: get_element_reference(
+                    'stat-reset-current-war'
+                ) as HTMLButtonElement,
+                crate_count: get_element_reference('stat-war-crate-count'),
+                time_spent: get_element_reference('stat-war-time-spent'),
+                time_to_hundred_crate: get_element_reference(
+                    'stat-war-time-hundred-crate'
+                ),
+                bmat_used: get_element_reference('stat-war-bmat-used'),
+                emat_used: get_element_reference('stat-war-emat-used'),
+                hemat_used: get_element_reference('stat-war-hemat-used'),
+                rmat_used: get_element_reference('stat-war-rmat-used'),
             },
             start_config_button: get_element_reference(
                 'start-config-button'
-            ) as HTMLButtonElement,
-            reset_stat_button: get_element_reference(
-                'stat-reset'
             ) as HTMLButtonElement,
             root_element: get_element_reference('stat-view'),
             crate_count: get_element_reference('stat-crate-count'),

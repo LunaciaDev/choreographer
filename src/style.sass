@@ -200,13 +200,13 @@ input[type=number]::-webkit-outer-spin-button
 .item-description, .item-fluff
     text-align: center
 
-#stat-basic, #stat-button-group
+.stat-basic, .stat-button-group
     width: 60vw
 
     .table-item
         min-width: 240px
 
-#stat-material
+.stat-material
     width: 60vw
 
     .table-item
@@ -397,20 +397,23 @@ select
         display: flex
         flex-direction: column
         gap: 1rem
-        flex-grow: 1
-        padding: 0 1.5rem
+        flex: 1 1 0px
 
         textarea
             flex-grow: 1
             min-height: 10rem
 
+    #stat-export-data
+        padding-left: 1.5rem
+
     #stat-import-data
         border-right: 2px solid $sapphire
+        padding-right: 1.5rem
 
         button
             margin: 0 auto
 
-#stat-button-group
+.stat-button-group
     justify-content: flex-end
     margin: 0 auto 1.5rem auto
 
@@ -480,7 +483,7 @@ select
 .overlay
     display: flex
     align-items: center
-    position: absolute
+    position: fixed
     top: 0
     width: 100vw
     height: 100vh
@@ -524,11 +527,25 @@ select
     #result-view .table
         width: 75vw
 
+    
+    #stat-import-export-overlay
+        .overlay-content
+            flex-direction: column
+            justify-content: unset
+        
+        #stat-import-data
+            padding: 1.5rem 1.5rem
+            border-right: 0
+            border-bottom: 2px solid $sapphire
+
+        #stat-export-data
+            padding: 1.5rem 1.5rem
+
 @media (max-width: 700px)
     #stat-material
         width: 95vw
 
-    #stat-basic, #stat-button-group
+    #stat-basic, .stat-button-group
         width: 95vw
 
     #logihub-input textarea

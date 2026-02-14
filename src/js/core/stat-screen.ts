@@ -2,16 +2,21 @@ import { item_data } from '../data/item-data';
 import { duration_to_string, number_formatter } from '../helper';
 import { Cost } from '../types/item-cost';
 import type { ManuData } from '../types/manu-data';
-import type { ExportData, UserDataV1 } from '../types/user-data';
+import {
+    CURRENT_VERSION,
+    make_empty_user_data,
+    type ExportData,
+    type UserDataV1,
+    type UserDataV2,
+} from '../types/user-data';
 import { ConfigScreen } from './config-screen';
 import { DomRegistry, type StatRegistry } from './dom-registry';
 
 let stat_registry: StatRegistry;
 
 let enable_local_storage: boolean;
-let user_data: UserDataV1;
+let user_data: UserDataV2;
 
-const CURRENT_VERSION = 1;
 const VERSION_KEY = 'saveversion';
 const DATA_KEY = 'userdata';
 
@@ -36,15 +41,37 @@ function is_local_storage_available(): boolean {
 function load_user_data(raw_user_data: string, version_data: number) {
     switch (version_data) {
         case 1: {
-            user_data = JSON.parse(raw_user_data) as UserDataV1;
+            const old_user_data = JSON.parse(raw_user_data) as UserDataV1;
+            old_user_data.material_consumed = Object.assign(
+                new Cost(),
+                old_user_data.material_consumed
+            );
 
-            // casting Object to Cost
-            const cost = new Cost();
-            cost.bmat = user_data.material_consumed.bmat;
-            cost.emat = user_data.material_consumed.emat;
-            cost.rmat = user_data.material_consumed.rmat;
-            cost.hemat = user_data.material_consumed.hemat;
-            user_data.material_consumed = cost;
+            user_data = {
+                crate_crafted: old_user_data.crate_crafted,
+                item_crafted: old_user_data.item_crafted,
+                material_consumed: old_user_data.material_consumed,
+                time_spent: old_user_data.time_spent,
+                war_snapshot: {
+                    crate_crafted: old_user_data.crate_crafted,
+                    material_consumed: old_user_data.material_consumed,
+                    time_spent: old_user_data.time_spent,
+                },
+            };
+            break;
+        }
+
+        case 2: {
+            user_data = JSON.parse(raw_user_data) as UserDataV2;
+
+            user_data.material_consumed = Object.assign(
+                new Cost(),
+                user_data.material_consumed
+            );
+            user_data.war_snapshot.material_consumed = Object.assign(
+                new Cost(),
+                user_data.war_snapshot.material_consumed
+            );
             break;
         }
 
@@ -63,12 +90,7 @@ export namespace StatScreen {
             const data = window.localStorage.getItem(DATA_KEY);
 
             if (version === null || data === null) {
-                user_data = {
-                    crate_crafted: 0,
-                    material_consumed: new Cost(),
-                    item_crafted: [],
-                    time_spent: 0,
-                };
+                user_data = make_empty_user_data();
 
                 window.localStorage.setItem(
                     DATA_KEY,
@@ -79,7 +101,19 @@ export namespace StatScreen {
                     CURRENT_VERSION.toString()
                 );
             } else {
-                load_user_data(data, parseInt(version));
+                const version_int = parseInt(version);
+                load_user_data(data, version_int);
+
+                if (version_int < CURRENT_VERSION) {
+                    window.localStorage.setItem(
+                        DATA_KEY,
+                        JSON.stringify(user_data)
+                    );
+                    window.localStorage.setItem(
+                        VERSION_KEY,
+                        CURRENT_VERSION.toString()
+                    );
+                }
             }
         }
 
@@ -108,14 +142,16 @@ export namespace StatScreen {
                         stat_registry.stat_io.data_input.value
                     ) as ExportData;
                     load_user_data(raw_data.data, raw_data.version);
-                    window.localStorage.setItem(
-                        DATA_KEY,
-                        JSON.stringify(user_data)
-                    );
-                    window.localStorage.setItem(
-                        VERSION_KEY,
-                        CURRENT_VERSION.toString()
-                    );
+                    if (enable_local_storage) {
+                        window.localStorage.setItem(
+                            DATA_KEY,
+                            JSON.stringify(user_data)
+                        );
+                        window.localStorage.setItem(
+                            VERSION_KEY,
+                            CURRENT_VERSION.toString()
+                        );
+                    }
                     StatScreen.show();
                     stat_registry.stat_io.overlay_element.className = 'hidden';
                 } catch {
@@ -135,30 +171,39 @@ export namespace StatScreen {
                 version: CURRENT_VERSION,
                 data: JSON.stringify(user_data),
             });
+            stat_registry.stat_io.reset_data_output.value = JSON.stringify(
+                make_empty_user_data()
+            );
         });
 
-        stat_registry.reset_stat_button.addEventListener('click', () => {
-            user_data = {
-                crate_crafted: 0,
-                material_consumed: new Cost(),
-                item_crafted: [],
-                time_spent: 0,
-            };
+        stat_registry.stat_current_war.reset_current_war.addEventListener(
+            'click',
+            () => {
+                if (
+                    user_data.crate_crafted ===
+                    user_data.war_snapshot.crate_crafted
+                ) {
+                    // Reasonable that no changes happened. Do nothing.
+                    return;
+                }
 
-            if (enable_local_storage) {
-                const data_string = JSON.stringify(user_data);
+                user_data.war_snapshot.crate_crafted = user_data.crate_crafted;
+                user_data.war_snapshot.material_consumed = Object.assign(
+                    new Cost(),
+                    user_data.material_consumed
+                );
+                user_data.war_snapshot.time_spent = user_data.time_spent;
 
-                // Block unnecessary writes
-                if (window.localStorage.getItem(DATA_KEY) !== data_string) {
+                if (enable_local_storage) {
                     window.localStorage.setItem(
                         DATA_KEY,
                         JSON.stringify(user_data)
                     );
                 }
-            }
 
-            show();
-        });
+                StatScreen.show();
+            }
+        );
     }
 
     export function show(): void {
@@ -166,6 +211,7 @@ export namespace StatScreen {
 
         stat_registry.start_config_button.className = 'accent';
 
+        // Lifetime Stats
         stat_registry.crate_count.innerText = number_formatter.format(
             user_data.crate_crafted
         );
@@ -175,7 +221,6 @@ export namespace StatScreen {
         stat_registry.time_to_hundred_crate.innerText = duration_to_string(
             user_data.time_spent / (user_data.crate_crafted / 100)
         );
-
         stat_registry.bmat_used.innerText = number_formatter.format(
             user_data.material_consumed.bmat
         );
@@ -187,6 +232,38 @@ export namespace StatScreen {
         );
         stat_registry.rmat_used.innerText = number_formatter.format(
             user_data.material_consumed.rmat
+        );
+
+        // Current War Stat
+        // Delta between lifetime stat and the snapshot taken
+        const current_war_registry = stat_registry.stat_current_war;
+        const war_snapshot = user_data.war_snapshot;
+        const war_cost = Object.assign(new Cost(), user_data.material_consumed);
+        war_cost.subtract(war_snapshot.material_consumed);
+
+        current_war_registry.crate_count.innerText = number_formatter.format(
+            user_data.crate_crafted - war_snapshot.crate_crafted
+        );
+        current_war_registry.time_spent.innerText = duration_to_string(
+            user_data.time_spent - war_snapshot.time_spent
+        );
+        current_war_registry.time_to_hundred_crate.innerText =
+            duration_to_string(
+                (user_data.time_spent - war_snapshot.time_spent) /
+                    ((user_data.crate_crafted - war_snapshot.crate_crafted) /
+                        100)
+            );
+        current_war_registry.bmat_used.innerText = number_formatter.format(
+            war_cost.bmat
+        );
+        current_war_registry.emat_used.innerText = number_formatter.format(
+            war_cost.emat
+        );
+        current_war_registry.hemat_used.innerText = number_formatter.format(
+            war_cost.hemat
+        );
+        current_war_registry.rmat_used.innerText = number_formatter.format(
+            war_cost.rmat
         );
 
         stat_registry.root_element.className = '';

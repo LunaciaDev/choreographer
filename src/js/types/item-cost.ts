@@ -40,10 +40,25 @@ export class Cost {
         hemat: number;
         rmat: number;
     }) {
-        this.bmat -= cost.bmat * 4;
-        this.emat -= cost.emat * 4;
-        this.hemat -= cost.hemat * 4;
-        this.rmat -= cost.rmat * 4;
+        this.bmat -= cost.bmat;
+        this.emat -= cost.emat;
+        this.hemat -= cost.hemat;
+        this.rmat -= cost.rmat;
+    }
+
+    subtract_multiple(
+        amount: number,
+        cost: {
+            bmat: number;
+            emat: number;
+            hemat: number;
+            rmat: number;
+        }
+    ) {
+        this.bmat -= cost.bmat * amount;
+        this.emat -= cost.emat * amount;
+        this.hemat -= cost.hemat * amount;
+        this.rmat -= cost.rmat * amount;
     }
 
     reset() {

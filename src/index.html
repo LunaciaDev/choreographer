@@ -84,15 +84,22 @@
                                 id="stat-export-data-output"
                                 readonly
                             ></textarea>
+                            <label for="stat-reset-data-output"
+                                >If you want to reset your data, use this
+                                instead:</label
+                            >
+                            <textarea
+                                id="stat-reset-data-output"
+                                readonly
+                            ></textarea>
                         </div>
                     </div>
                 </div>
-                <div id="stat-button-group" class="group">
+                <div class="stat-button-group group">
                     <button id="import-export-stat">Import/Export Data</button>
-                    <button id="stat-reset">Reset Statistics</button>
                 </div>
                 <h2 class="stat-header">Lifetime Statistics</h2>
-                <div id="stat-basic" class="table">
+                <div class="table stat-basic">
                     <div class="table-item">
                         <div class="item-value" id="stat-crate-count"></div>
                         <div class="item-description">crates manufactured</div>
@@ -111,7 +118,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="stat-material" class="table">
+                <div class="table stat-material">
                     <div class="table-item">
                         <div class="item-value" id="stat-bmat-used"></div>
                         <div class="item-description">bmat consumed</div>
@@ -126,6 +133,49 @@
                     </div>
                     <div class="table-item">
                         <div class="item-value" id="stat-rmat-used"></div>
+                        <div class="item-description">rmat consumed</div>
+                    </div>
+                </div>
+                <h2 class="stat-header">Current War Statistics</h2>
+                <div class="stat-button-group group">
+                    <button id="stat-reset-current-war">
+                        Reset Current War Stat
+                    </button>
+                </div>
+                <div class="table stat-basic">
+                    <div class="table-item">
+                        <div class="item-value" id="stat-war-crate-count"></div>
+                        <div class="item-description">crates manufactured</div>
+                    </div>
+                    <div class="table-item">
+                        <div class="item-value" id="stat-war-time-spent"></div>
+                        <div class="item-description">spent manufacturing</div>
+                    </div>
+                    <div class="table-item">
+                        <div
+                            class="item-value"
+                            id="stat-war-time-hundred-crate"
+                        ></div>
+                        <div class="item-description">
+                            to manufacture 100 crates
+                        </div>
+                    </div>
+                </div>
+                <div class="table stat-material">
+                    <div class="table-item">
+                        <div class="item-value" id="stat-war-bmat-used"></div>
+                        <div class="item-description">bmat consumed</div>
+                    </div>
+                    <div class="table-item">
+                        <div class="item-value" id="stat-war-emat-used"></div>
+                        <div class="item-description">emat consumed</div>
+                    </div>
+                    <div class="table-item">
+                        <div class="item-value" id="stat-war-hemat-used"></div>
+                        <div class="item-description">hemat consumed</div>
+                    </div>
+                    <div class="table-item">
+                        <div class="item-value" id="stat-war-rmat-used"></div>
                         <div class="item-description">rmat consumed</div>
                     </div>
                 </div>
