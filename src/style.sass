@@ -397,15 +397,18 @@ select
         display: flex
         flex-direction: column
         gap: 1rem
-        flex-grow: 1
-        padding: 0 1.5rem
+        flex: 1 1 0px
 
         textarea
             flex-grow: 1
             min-height: 10rem
 
+    #stat-export-data
+        padding-left: 1.5rem
+
     #stat-import-data
         border-right: 2px solid $sapphire
+        padding-right: 1.5rem
 
         button
             margin: 0 auto
@@ -480,7 +483,7 @@ select
 .overlay
     display: flex
     align-items: center
-    position: absolute
+    position: fixed
     top: 0
     width: 100vw
     height: 100vh
@@ -523,6 +526,20 @@ select
 
     #result-view .table
         width: 75vw
+
+    
+    #stat-import-export-overlay
+        .overlay-content
+            flex-direction: column
+            justify-content: unset
+        
+        #stat-import-data
+            padding: 1.5rem 1.5rem
+            border-right: 0
+            border-bottom: 2px solid $sapphire
+
+        #stat-export-data
+            padding: 1.5rem 1.5rem
 
 @media (max-width: 700px)
     #stat-material
