@@ -131,7 +131,7 @@ export class ManuData {
     }
 
     put_back_item(id: number) {
-        this.current_cost.subtract(item_data[id].cost);
+        this.current_cost.subtract_multiple(4, item_data[id].cost);
 
         let removed_item = false;
         this.staged_crate = this.staged_crate.filter((value) => {

@@ -82,8 +82,19 @@ export type ResultRegistry = {
 export type StatRegistry = {
     root_element: HTMLElement;
     stat_io: StatIO;
+    stat_current_war: StatCurrentWar;
     start_config_button: HTMLButtonElement;
     reset_stat_button: HTMLButtonElement;
+    crate_count: HTMLElement;
+    time_spent: HTMLElement;
+    time_to_hundred_crate: HTMLElement;
+    bmat_used: HTMLElement;
+    emat_used: HTMLElement;
+    hemat_used: HTMLElement;
+    rmat_used: HTMLElement;
+};
+
+export type StatCurrentWar = {
     crate_count: HTMLElement;
     time_spent: HTMLElement;
     time_to_hundred_crate: HTMLElement;
@@ -265,6 +276,17 @@ export namespace DomRegistry {
                 overlay_element: get_element_reference(
                     'stat-import-export-overlay'
                 ),
+            },
+            stat_current_war: {
+                crate_count: get_element_reference('stat-war-crate-count'),
+                time_spent: get_element_reference('stat-war-time-spent'),
+                time_to_hundred_crate: get_element_reference(
+                    'stat-war-time-hundred-crate'
+                ),
+                bmat_used: get_element_reference('stat-war-bmat-used'),
+                emat_used: get_element_reference('stat-war-emat-used'),
+                hemat_used: get_element_reference('stat-war-hemat-used'),
+                rmat_used: get_element_reference('stat-war-rmat-used'),
             },
             start_config_button: get_element_reference(
                 'start-config-button'

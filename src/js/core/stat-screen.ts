@@ -197,6 +197,7 @@ export namespace StatScreen {
 
         stat_registry.start_config_button.className = 'accent';
 
+        // Lifetime Stats
         stat_registry.crate_count.innerText = number_formatter.format(
             user_data.crate_crafted
         );
@@ -206,7 +207,6 @@ export namespace StatScreen {
         stat_registry.time_to_hundred_crate.innerText = duration_to_string(
             user_data.time_spent / (user_data.crate_crafted / 100)
         );
-
         stat_registry.bmat_used.innerText = number_formatter.format(
             user_data.material_consumed.bmat
         );
@@ -218,6 +218,38 @@ export namespace StatScreen {
         );
         stat_registry.rmat_used.innerText = number_formatter.format(
             user_data.material_consumed.rmat
+        );
+
+        // Current War Stat
+        // Delta between lifetime stat and the snapshot taken
+        const current_war_registry = stat_registry.stat_current_war;
+        const war_snapshot = user_data.war_snapshot;
+        const war_cost = Object.assign(new Cost(), user_data.material_consumed);
+        war_cost.subtract(war_snapshot.material_consumed);
+
+        current_war_registry.crate_count.innerText = number_formatter.format(
+            user_data.crate_crafted - war_snapshot.crate_crafted
+        );
+        current_war_registry.time_spent.innerText = duration_to_string(
+            user_data.time_spent - war_snapshot.time_spent
+        );
+        current_war_registry.time_to_hundred_crate.innerText =
+            duration_to_string(
+                (user_data.time_spent - war_snapshot.time_spent) /
+                    ((user_data.crate_crafted - war_snapshot.crate_crafted) /
+                        100)
+            );
+        current_war_registry.bmat_used.innerText = number_formatter.format(
+            war_cost.bmat
+        );
+        current_war_registry.emat_used.innerText = number_formatter.format(
+            war_cost.emat
+        );
+        current_war_registry.hemat_used.innerText = number_formatter.format(
+            war_cost.hemat
+        );
+        current_war_registry.rmat_used.innerText = number_formatter.format(
+            war_cost.rmat
         );
 
         stat_registry.root_element.className = '';
