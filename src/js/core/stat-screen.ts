@@ -175,6 +175,35 @@ export namespace StatScreen {
                 make_empty_user_data()
             );
         });
+
+        stat_registry.stat_current_war.reset_current_war.addEventListener(
+            'click',
+            () => {
+                if (
+                    user_data.crate_crafted ===
+                    user_data.war_snapshot.crate_crafted
+                ) {
+                    // Reasonable that no changes happened. Do nothing.
+                    return;
+                }
+
+                user_data.war_snapshot.crate_crafted = user_data.crate_crafted;
+                user_data.war_snapshot.material_consumed = Object.assign(
+                    new Cost(),
+                    user_data.material_consumed
+                );
+                user_data.war_snapshot.time_spent = user_data.time_spent;
+
+                if (enable_local_storage) {
+                    window.localStorage.setItem(
+                        DATA_KEY,
+                        JSON.stringify(user_data)
+                    );
+                }
+
+                StatScreen.show();
+            }
+        );
     }
 
     export function show(): void {

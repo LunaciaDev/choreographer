@@ -94,6 +94,7 @@ export type StatRegistry = {
 };
 
 export type StatCurrentWar = {
+    reset_current_war: HTMLButtonElement;
     crate_count: HTMLElement;
     time_spent: HTMLElement;
     time_to_hundred_crate: HTMLElement;
@@ -281,6 +282,9 @@ export namespace DomRegistry {
                 ) as HTMLTextAreaElement,
             },
             stat_current_war: {
+                reset_current_war: get_element_reference(
+                    'stat-reset-current-war'
+                ) as HTMLButtonElement,
                 crate_count: get_element_reference('stat-war-crate-count'),
                 time_spent: get_element_reference('stat-war-time-spent'),
                 time_to_hundred_crate: get_element_reference(
