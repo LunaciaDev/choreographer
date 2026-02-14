@@ -97,6 +97,9 @@
                 </div>
                 <div class="stat-button-group group">
                     <button id="import-export-stat">Import/Export Data</button>
+                    <button id="stat-reset-current-war">
+                        Reset Current War Stat
+                    </button>
                 </div>
                 <h2 class="stat-header">Lifetime Statistics</h2>
                 <div class="table stat-basic">
@@ -137,11 +140,6 @@
                     </div>
                 </div>
                 <h2 class="stat-header">Current War Statistics</h2>
-                <div class="stat-button-group group">
-                    <button id="stat-reset-current-war">
-                        Reset Current War Stat
-                    </button>
-                </div>
                 <div class="table stat-basic">
                     <div class="table-item">
                         <div class="item-value" id="stat-war-crate-count"></div>
@@ -280,6 +278,43 @@
                                     id="logihub-import-paste"
                                     name="logihub-import-paste"
                                 ></textarea>
+                            </div>
+                            <div id="config-filter-cost">
+                                Allow item costing:
+                                <div class="checkbox-group">
+                                    <input
+                                        type="checkbox"
+                                        id="config-allow-bmat"
+                                        checked
+                                    />
+                                    <label for="config-allow-bmat">bmat</label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <input
+                                        type="checkbox"
+                                        id="config-allow-emat"
+                                        checked
+                                    />
+                                    <label for="config-allow-emat">emat</label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <input
+                                        type="checkbox"
+                                        id="config-allow-hemat"
+                                        checked
+                                    />
+                                    <label for="config-allow-hemat"
+                                        >hemat</label
+                                    >
+                                </div>
+                                <div class="checkbox-group">
+                                    <input
+                                        type="checkbox"
+                                        id="config-allow-rmat"
+                                        checked
+                                    />
+                                    <label for="config-allow-rmat">rmat</label>
+                                </div>
                             </div>
                             <div class="hidden" id="logihub-import-error"></div>
                             <div id="logihub-import-button-group">

@@ -14,6 +14,10 @@ export type ConfigLogihubInput = {
     logihub_help: HTMLElement;
     error_info: HTMLElement;
     show_logihub_help: HTMLButtonElement;
+    allow_bmat: HTMLInputElement;
+    allow_emat: HTMLInputElement;
+    allow_hemat: HTMLInputElement;
+    allow_rmat: HTMLInputElement;
 };
 
 export type ConfigDataView = {
@@ -150,6 +154,18 @@ export namespace DomRegistry {
                     'config-show-logihub-help'
                 ) as HTMLButtonElement,
                 error_info: get_element_reference('logihub-import-error'),
+                allow_bmat: get_element_reference(
+                    'config-allow-bmat'
+                ) as HTMLInputElement,
+                allow_emat: get_element_reference(
+                    'config-allow-emat'
+                ) as HTMLInputElement,
+                allow_hemat: get_element_reference(
+                    'config-allow-hemat'
+                ) as HTMLInputElement,
+                allow_rmat: get_element_reference(
+                    'config-allow-rmat'
+                ) as HTMLInputElement,
             },
             manual_input: {
                 item_name: get_element_reference(

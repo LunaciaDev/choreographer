@@ -90,9 +90,26 @@ export namespace LogihubImporter {
 
         try {
             const items = JSON.parse(raw_data) as LoghubItem[];
+            const registry = DomRegistry.get_config_registry().logihub_input;
+            const allow_bmat = registry.allow_bmat.checked;
+            const allow_emat = registry.allow_emat.checked;
+            const allow_hemat = registry.allow_hemat.checked;
+            const allow_rmat = registry.allow_rmat.checked;
 
             for (const item of items) {
                 const id = to_internal(item.name);
+
+                // Block import of item having disallowed cost component
+                const item_cost = item_data[id].cost;
+                if (
+                    (item_cost.bmat !== 0 && !allow_bmat) ||
+                    (item_cost.emat !== 0 && !allow_emat) ||
+                    (item_cost.hemat !== 0 && !allow_hemat) ||
+                    (item_cost.rmat !== 0 && !allow_rmat)
+                ) {
+                    continue;
+                }
+
                 const priority = Priority.to_self(item.priority);
                 let fill_level: FillLevel;
 
