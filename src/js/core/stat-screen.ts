@@ -54,7 +54,6 @@ function load_user_data(raw_user_data: string, version_data: number) {
                 time_spent: old_user_data.time_spent,
                 war_snapshot: {
                     crate_crafted: old_user_data.crate_crafted,
-                    item_crafted: old_user_data.item_crafted,
                     material_consumed: old_user_data.material_consumed,
                     time_spent: old_user_data.time_spent,
                 },
