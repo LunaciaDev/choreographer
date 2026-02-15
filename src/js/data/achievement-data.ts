@@ -236,7 +236,9 @@ export const achievement_data: AchievementData[] = [
                 name: 'Achievement_E1',
                 condition: (session, _) =>
                     session.crate_crafted >= 300 &&
-                    session.time_spent / (session.crate_crafted / 100) <= 1440,
+                    Math.round(
+                        session.time_spent / (session.crate_crafted / 100)
+                    ) <= 1440,
                 condition_text:
                     'Maintained a pace at least 100 crates every 24 minutes in a session making over 300 crates.',
                 deco_text: 'Achivement_DecoE1',
@@ -245,7 +247,9 @@ export const achievement_data: AchievementData[] = [
                 name: 'Achievement_E2',
                 condition: (session, _) =>
                     session.crate_crafted >= 300 &&
-                    session.time_spent / (session.crate_crafted / 100) <= 1200,
+                    Math.round(
+                        session.time_spent / (session.crate_crafted / 100)
+                    ) <= 1200,
                 condition_text:
                     'Maintained a pace at least 100 crates every 20 minutes in a session making over 300 crates.',
                 deco_text: 'Achivement_DecoE2',
@@ -254,7 +258,9 @@ export const achievement_data: AchievementData[] = [
                 name: 'Achievement_E3',
                 condition: (session, _) =>
                     session.crate_crafted >= 300 &&
-                    session.time_spent / (session.crate_crafted / 100) <= 1080,
+                    Math.round(
+                        session.time_spent / (session.crate_crafted / 100)
+                    ) <= 1080,
                 condition_text:
                     'Maintained a pace at least 100 crates every 18 minutes in a session making over 300 crates.',
                 deco_text: 'Achivement_DecoE3',
@@ -263,7 +269,9 @@ export const achievement_data: AchievementData[] = [
                 name: 'Achievement_E4',
                 condition: (session, _) =>
                     session.crate_crafted >= 300 &&
-                    session.time_spent / (session.crate_crafted / 100) <= 960,
+                    Math.round(
+                        session.time_spent / (session.crate_crafted / 100)
+                    ) <= 960,
                 condition_text:
                     'Maintained a pace at least 100 crates every 16 minutes in a session making over 300 crates',
                 deco_text: 'How did you go that fast..?',

@@ -1,3 +1,4 @@
+import { achievement_data } from '../data/achievement-data';
 import { item_data } from '../data/item-data';
 import {
     get_color_class,
@@ -93,6 +94,29 @@ export namespace ResultScreen {
                 .toString()
                 .concat(' trucks');
         }
+
+        result_registry.achivement_unlocked.innerHTML = '';
+        StatScreen.get_unlocked_achivements().forEach((entry) => {
+            const achievement_card_template =
+                DomRegistry.get_achivement_card().cloneNode(
+                    true
+                ) as HTMLTemplateElement;
+            const card_elements = get_template_elements(
+                achievement_card_template,
+                ['achievement-name', 'achievement-howto', 'achievement-fluff']
+            );
+            const achievement = achievement_data[entry.id].tiers[entry.tier];
+
+            card_elements['achievement-name'].textContent = achievement.name;
+            card_elements['achievement-howto'].textContent =
+                achievement.condition_text;
+            card_elements['achievement-fluff'].textContent =
+                achievement.deco_text;
+
+            result_registry.achivement_unlocked.appendChild(
+                achievement_card_template.content
+            );
+        });
 
         function add_line(item_id: number, amount: number) {
             const item = item_data[item_id];

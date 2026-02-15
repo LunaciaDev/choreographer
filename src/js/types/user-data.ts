@@ -17,6 +17,11 @@ export function make_empty_user_data(): UserData {
     };
 }
 
+export type AchievementEntry = {
+    id: number;
+    tier: number;
+};
+
 export type UserData = {
     crate_crafted: number;
     material_consumed: Cost;
@@ -27,7 +32,7 @@ export type UserData = {
         material_consumed: Cost;
         time_spent: number;
     };
-    achievements: number[];
+    achievements: AchievementEntry[];
 };
 
 export type UserDataV1 = {

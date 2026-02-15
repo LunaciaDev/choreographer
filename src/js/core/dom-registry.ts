@@ -81,6 +81,7 @@ export type ResultRegistry = {
     carrier_equivalent: HTMLElement;
     return_button: HTMLButtonElement;
     item_card_template: HTMLTemplateElement;
+    achivement_unlocked: HTMLElement;
 };
 
 export type StatRegistry = {
@@ -95,6 +96,7 @@ export type StatRegistry = {
     emat_used: HTMLElement;
     hemat_used: HTMLElement;
     rmat_used: HTMLElement;
+    achievement_owned: HTMLElement;
 };
 
 export type StatCurrentWar = {
@@ -133,10 +135,14 @@ let manu_registry: ManuRegistry;
 let result_registry: ResultRegistry;
 let stat_registry: StatRegistry;
 let title: HTMLElement;
+let achivement_template: HTMLTemplateElement;
 
 export namespace DomRegistry {
     export function init() {
         title = get_element_reference('title');
+        achivement_template = get_element_reference(
+            'achievement-card'
+        ) as HTMLTemplateElement;
         config_registry = {
             start_manu: get_element_reference(
                 'start-manu-button'
@@ -274,6 +280,9 @@ export namespace DomRegistry {
                 'result-container-equivalent'
             ),
             hemat_used: get_element_reference('result-hemat-used'),
+            achivement_unlocked: get_element_reference(
+                'result-achievements-unlocked'
+            ),
         };
         stat_registry = {
             stat_io: {
@@ -324,6 +333,7 @@ export namespace DomRegistry {
             emat_used: get_element_reference('stat-emat-used'),
             hemat_used: get_element_reference('stat-hemat-used'),
             rmat_used: get_element_reference('stat-rmat-used'),
+            achievement_owned: get_element_reference('stat-owned-achievements'),
         };
     }
 
@@ -345,5 +355,9 @@ export namespace DomRegistry {
 
     export function get_stat_registry(): StatRegistry {
         return stat_registry;
+    }
+
+    export function get_achivement_card(): HTMLTemplateElement {
+        return achivement_template;
     }
 }

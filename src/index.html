@@ -49,6 +49,14 @@
         </div>
     </template>
 
+    <template id="achievement-card">
+        <div class="achievement-card table-item">
+            <div class="achievement-name"></div>
+            <div class="achievement-howto"></div>
+            <div class="achievement-fluff"></div>
+        </div>
+    </template>
+
     <body>
         <header>
             <div id="app-name">
@@ -177,6 +185,8 @@
                         <div class="item-description">rmat consumed</div>
                     </div>
                 </div>
+                <h2 class="stat-header">Achievements</h2>
+                <div id="stat-owned-achievements" class="table"></div>
             </div>
             <div id="config-view" class="hidden">
                 <div id="config-logihub-help" class="hidden">
@@ -502,9 +512,7 @@
                         <div
                             class="item-value"
                             id="result-container-equivalent"
-                        >
-                            4.5 trains
-                        </div>
+                        ></div>
                         <div class="item-description">worth of crates!</div>
                     </div>
                 </div>
@@ -526,6 +534,8 @@
                         <div class="item-description">rmat consumed</div>
                     </div>
                 </div>
+                <div class="result-hd">Achievements Unlocked</div>
+                <div id="result-achievements-unlocked" class="table"></div>
                 <div class="result-hd">Crates Made</div>
                 <div id="result-item-crafted"></div>
             </div>
