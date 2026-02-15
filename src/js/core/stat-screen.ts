@@ -7,7 +7,7 @@ import {
     make_empty_user_data,
     type ExportData,
     type UserDataV1,
-    type UserDataV2,
+    type UserData,
 } from '../types/user-data';
 import { ConfigScreen } from './config-screen';
 import { DomRegistry, type StatRegistry } from './dom-registry';
@@ -15,7 +15,7 @@ import { DomRegistry, type StatRegistry } from './dom-registry';
 let stat_registry: StatRegistry;
 
 let enable_local_storage: boolean;
-let user_data: UserDataV2;
+let user_data: UserData;
 
 const VERSION_KEY = 'saveversion';
 const DATA_KEY = 'userdata';
@@ -52,6 +52,7 @@ function load_user_data(raw_user_data: string, version_data: number) {
                 item_crafted: old_user_data.item_crafted,
                 material_consumed: old_user_data.material_consumed,
                 time_spent: old_user_data.time_spent,
+                achievements: [],
                 war_snapshot: {
                     crate_crafted: old_user_data.crate_crafted,
                     material_consumed: old_user_data.material_consumed,
@@ -62,7 +63,7 @@ function load_user_data(raw_user_data: string, version_data: number) {
         }
 
         case 2: {
-            user_data = JSON.parse(raw_user_data) as UserDataV2;
+            user_data = JSON.parse(raw_user_data) as UserData;
 
             user_data.material_consumed = Object.assign(
                 new Cost(),

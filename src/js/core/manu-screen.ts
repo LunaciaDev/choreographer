@@ -246,6 +246,7 @@ export namespace ManuScreen {
         manu_registry.stop_manu_button.addEventListener('click', () => {
             manu_data.clear_staged_items();
             StatScreen.update_manu_stat(start_time, manu_data);
+            // [TODO]: Update achievement data;
             ConfigScreen.update(manu_data);
             ResultScreen.show(
                 manu_data,

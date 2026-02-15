@@ -2,12 +2,13 @@ import { Cost } from './item-cost';
 
 export type ExportData = { version: number; data: string };
 export const CURRENT_VERSION = 2;
-export function make_empty_user_data(): UserDataV2 {
+export function make_empty_user_data(): UserData {
     return {
         crate_crafted: 0,
         material_consumed: new Cost(),
         item_crafted: [],
         time_spent: 0,
+        achievements: [],
         war_snapshot: {
             crate_crafted: 0,
             material_consumed: new Cost(),
@@ -16,7 +17,7 @@ export function make_empty_user_data(): UserDataV2 {
     };
 }
 
-export type UserDataV2 = {
+export type UserData = {
     crate_crafted: number;
     material_consumed: Cost;
     item_crafted: ItemCraftedEntry[];
@@ -26,6 +27,7 @@ export type UserDataV2 = {
         material_consumed: Cost;
         time_spent: number;
     };
+    achievements: number[];
 };
 
 export type UserDataV1 = {
