@@ -180,9 +180,10 @@ export namespace StatScreen {
                 version: CURRENT_VERSION,
                 data: JSON.stringify(user_data),
             });
-            stat_registry.stat_io.reset_data_output.value = JSON.stringify(
-                make_empty_user_data()
-            );
+            stat_registry.stat_io.reset_data_output.value = JSON.stringify({
+                version: CURRENT_VERSION,
+                data: JSON.stringify(make_empty_user_data()),
+            });
         });
 
         stat_registry.stat_current_war.reset_current_war.addEventListener(
