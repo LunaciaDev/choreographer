@@ -51,7 +51,8 @@ function load_user_data(raw_user_data: string, version_data: number) {
                 crate_crafted: old_user_data.crate_crafted,
                 item_crafted: old_user_data.item_crafted,
                 material_consumed: old_user_data.material_consumed,
-                time_spent: old_user_data.time_spent,
+                // version 2 use second instead of ms precision
+                time_spent: Math.ceil(old_user_data.time_spent / 1000),
                 achievements: [],
                 war_snapshot: {
                     crate_crafted: old_user_data.crate_crafted,
