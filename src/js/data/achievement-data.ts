@@ -16,24 +16,22 @@ interface AchivementCondition {
 }
 
 export const achievement_data: AchievementData[] = [
-    // Lifetime Achivements Set
     {
-        // Crate Manufactured
         tiers: [
             {
-                name: 'Achievement_Crate1',
+                name: 'Factory Worker',
                 condition: (_, lifetime) => lifetime.crate_crafted >= 1000,
                 condition_text: 'Made at least 1k crates.',
                 deco_text: 'Achievement_DecoCrate1',
             },
             {
-                name: 'Achievement_Crate2',
+                name: 'Apprentice Manufacturer',
                 condition: (_, lifetime) => lifetime.crate_crafted >= 10000,
                 condition_text: 'Made at least 10k crates.',
                 deco_text: 'Achievement_DecoCrate2',
             },
             {
-                name: 'Achievement_Crate3',
+                name: 'Industrial Powerhouse',
                 condition: (_, lifetime) => lifetime.crate_crafted >= 100000,
                 condition_text: 'Made at least 100k crates.',
                 deco_text: 'Achievement_DecoCrate3',
@@ -47,7 +45,6 @@ export const achievement_data: AchievementData[] = [
         ],
     },
     {
-        // BMATs Consumed
         tiers: [
             {
                 name: 'Achivement_BM1',
@@ -73,7 +70,6 @@ export const achievement_data: AchievementData[] = [
         ],
     },
     {
-        // EMATs Consumed
         tiers: [
             {
                 name: 'Achievement_EM1',
@@ -99,7 +95,6 @@ export const achievement_data: AchievementData[] = [
         ],
     },
     {
-        // HEMATs Consumed
         tiers: [
             {
                 name: 'Achievement_HM1',
@@ -125,7 +120,6 @@ export const achievement_data: AchievementData[] = [
         ],
     },
     {
-        // RMATs Consumed
         tiers: [
             {
                 name: 'Achievement_RM1',
@@ -151,37 +145,34 @@ export const achievement_data: AchievementData[] = [
         ],
     },
     {
-        // Time Spent
         tiers: [
             {
-                name: 'Achievement_T1',
+                name: 'Morning Shift',
                 condition: (_, lifetime) => lifetime.time_spent >= 3600,
-                condition_text: 'Spent 1 hour manufacturing',
+                condition_text: 'Spent 1 hour manufacturing.',
                 deco_text: 'Achivement_DecoT1',
             },
             {
                 name: 'Achievement_T2',
                 condition: (_, lifetime) => lifetime.time_spent >= 86400,
-                condition_text: 'Spent 1 day manufacturing',
+                condition_text: 'Spent 1 day manufacturing.',
                 deco_text: 'Achivement_DecoT2',
             },
             {
                 name: 'Achievement_T3',
                 condition: (_, lifetime) => lifetime.time_spent >= 604800,
-                condition_text: 'Spent 1 week manufacturing',
+                condition_text: 'Spent 1 week manufacturing.',
                 deco_text: 'Maybe you should touch grass...',
             },
             {
-                name: 'Achievement_T4',
+                name: 'One with the Machine',
                 condition: (_, lifetime) => lifetime.time_spent >= 2629800,
-                condition_text: 'Spent 1 month manufacturing',
+                condition_text: 'Spent... 1 month manufacturing?!',
                 deco_text: "That's some serious dedication, for sure.",
             },
         ],
     },
-    // Session Achievement Set
     {
-        // Crate Manufactured
         tiers: [
             {
                 name: 'Achievement_SC1',
@@ -199,38 +190,43 @@ export const achievement_data: AchievementData[] = [
                 name: 'Achievement_SC3',
                 condition: (session, _) => session.crate_crafted >= 720,
                 condition_text: 'Made 720 crates in a single session.',
-                deco_text: 'That is a trainload in one go! Nice.',
+                deco_text: 'One full train of supplies in one go!',
             },
             {
                 name: 'Achievement_SC4',
                 condition: (session, _) => session.crate_crafted >= 2000,
                 condition_text: 'Made 2000 crates in a single session.',
-                deco_text: 'Hopefully you have enough space to store those.',
+                deco_text: 'Our stock would be good for a while...',
             },
         ],
     },
     {
-        // BMAT Consumed
         tiers: [
             {
-                name: 'Achievement_SBM1',
+                name: 'BMAT User',
                 condition: (session, _) =>
                     session.material_consumed.bmat >= 30000,
                 condition_text: 'Consumed 30k bmats in a single session.',
+                deco_text: "That's a lot of bmats!",
+            },
+            {
+                name: 'BMAT Consumer',
+                condition: (session, _) =>
+                    session.material_consumed.bmat >= 90000,
+                condition_text: 'Consumed 90k bmats in a single session.',
                 deco_text: 'I would suggest helping to replace those.',
             },
             {
                 name: 'BMAT Blackhole',
                 condition: (session, _) =>
-                    session.material_consumed.bmat >= 90000,
-                condition_text: 'Consumed 90k bmats in a single session.',
-                deco_text: 'Three stockpiles, one person.',
+                    session.material_consumed.bmat >= 150000,
+                condition_text: 'Consumed 150k bmats in a single session.',
+                deco_text:
+                    'Now you have become the Factory, consumer of BMATs.',
             },
         ],
     },
     {
-        // Efficiency (time / 100 crates)
-        // Only eligible if >300 crates is made in a session.
         tiers: [
             {
                 name: 'Achievement_E1',
@@ -266,21 +262,19 @@ export const achievement_data: AchievementData[] = [
                 deco_text: 'Achivement_DecoE3',
             },
             {
-                name: 'Achievement_E4',
+                name: 'Maximum Overdrive',
                 condition: (session, _) =>
                     session.crate_crafted >= 300 &&
                     Math.round(
                         session.time_spent / (session.crate_crafted / 100)
                     ) <= 960,
                 condition_text:
-                    'Maintained a pace at least 100 crates every 16 minutes in a session making over 300 crates',
+                    'Maintained a pace at least 100 crates every 16 minutes in a session making over 300 crates.',
                 deco_text: 'How did you go that fast..?',
             },
         ],
     },
-    // FMAT References?
     {
-        // BAYONETS.
         tiers: [
             {
                 name: 'Three Stockpiles of Bayo',
