@@ -81,7 +81,8 @@ export type ResultRegistry = {
     carrier_equivalent: HTMLElement;
     return_button: HTMLButtonElement;
     item_card_template: HTMLTemplateElement;
-    achivement_unlocked: HTMLElement;
+    achievement_unlocked: HTMLElement;
+    achievement_header: HTMLElement;
 };
 
 export type StatRegistry = {
@@ -280,9 +281,10 @@ export namespace DomRegistry {
                 'result-container-equivalent'
             ),
             hemat_used: get_element_reference('result-hemat-used'),
-            achivement_unlocked: get_element_reference(
+            achievement_unlocked: get_element_reference(
                 'result-achievements-unlocked'
             ),
+            achievement_header: get_element_reference('result-achievements-hd'),
         };
         stat_registry = {
             stat_io: {
