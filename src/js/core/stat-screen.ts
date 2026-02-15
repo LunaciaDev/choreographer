@@ -64,7 +64,7 @@ function load_user_data(raw_user_data: string, version_data: number) {
                 war_snapshot: {
                     crate_crafted: old_user_data.crate_crafted,
                     material_consumed: old_user_data.material_consumed,
-                    time_spent: old_user_data.time_spent,
+                    time_spent: Math.ceil(old_user_data.time_spent / 1000),
                 },
             };
             break;
