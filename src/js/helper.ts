@@ -68,8 +68,6 @@ export function duration_to_string(duration: number): string {
         return '0s';
     }
 
-    duration = Math.ceil(duration / 1000);
-
     const result = [];
 
     for (const row of data) {

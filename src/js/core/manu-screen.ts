@@ -267,10 +267,10 @@ export namespace ManuScreen {
         manu_data.start_manu(config_data);
         DomRegistry.get_title().innerText = 'Manu';
 
-        start_time = Date.now();
+        start_time = Math.ceil(Date.now() / 1000);
         time_ref = setInterval(() => {
             // create a timer that track how much time has passed since manu start
-            const current_time = Date.now();
+            const current_time = Math.ceil(Date.now() / 1000);
             manu_registry.stat_label.time_spent.innerText = duration_to_string(
                 current_time - start_time
             );
