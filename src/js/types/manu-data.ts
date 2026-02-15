@@ -13,7 +13,6 @@ export class ManuData {
     queued_item: number[] = [];
     current_cost: Cost = new Cost();
     crate_crafted: number = 0;
-    start_time: number = 0;
 
     start_manu(config_data: ConfigData) {
         this.data = ItemType.get_iterator().map(() => []);

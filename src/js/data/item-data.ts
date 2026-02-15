@@ -1,5 +1,16 @@
-import type { ItemData } from '../types/item-data';
 import { ItemType } from '../types/item-type';
+
+export type ItemData = {
+    name: string;
+    alt_names?: string[];
+    type: ItemType;
+    cost: {
+        bmat: number;
+        emat: number;
+        hemat: number;
+        rmat: number;
+    };
+};
 
 /**
  * Hey, you. Yes, you.

@@ -246,6 +246,7 @@ export namespace ManuScreen {
         manu_registry.stop_manu_button.addEventListener('click', () => {
             manu_data.clear_staged_items();
             StatScreen.update_manu_stat(start_time, manu_data);
+            // [TODO]: Update achievement data;
             ConfigScreen.update(manu_data);
             ResultScreen.show(
                 manu_data,
@@ -266,10 +267,10 @@ export namespace ManuScreen {
         manu_data.start_manu(config_data);
         DomRegistry.get_title().innerText = 'Manu';
 
-        start_time = Date.now();
+        start_time = Math.ceil(Date.now() / 1000);
         time_ref = setInterval(() => {
             // create a timer that track how much time has passed since manu start
-            const current_time = Date.now();
+            const current_time = Math.ceil(Date.now() / 1000);
             manu_registry.stat_label.time_spent.innerText = duration_to_string(
                 current_time - start_time
             );

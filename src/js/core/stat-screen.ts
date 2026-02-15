@@ -1,5 +1,10 @@
+import { achievement_data } from '../data/achievement-data';
 import { item_data } from '../data/item-data';
-import { duration_to_string, number_formatter } from '../helper';
+import {
+    duration_to_string,
+    get_template_elements,
+    number_formatter,
+} from '../helper';
 import { Cost } from '../types/item-cost';
 import type { ManuData } from '../types/manu-data';
 import {
@@ -7,7 +12,8 @@ import {
     make_empty_user_data,
     type ExportData,
     type UserDataV1,
-    type UserDataV2,
+    type UserData,
+    type AchievementEntry,
 } from '../types/user-data';
 import { ConfigScreen } from './config-screen';
 import { DomRegistry, type StatRegistry } from './dom-registry';
@@ -15,7 +21,8 @@ import { DomRegistry, type StatRegistry } from './dom-registry';
 let stat_registry: StatRegistry;
 
 let enable_local_storage: boolean;
-let user_data: UserDataV2;
+let user_data: UserData;
+let unlocked_achivements: AchievementEntry[] = [];
 
 const VERSION_KEY = 'saveversion';
 const DATA_KEY = 'userdata';
@@ -51,7 +58,9 @@ function load_user_data(raw_user_data: string, version_data: number) {
                 crate_crafted: old_user_data.crate_crafted,
                 item_crafted: old_user_data.item_crafted,
                 material_consumed: old_user_data.material_consumed,
-                time_spent: old_user_data.time_spent,
+                // version 2 use second instead of ms precision
+                time_spent: Math.ceil(old_user_data.time_spent / 1000),
+                achievements: [],
                 war_snapshot: {
                     crate_crafted: old_user_data.crate_crafted,
                     material_consumed: old_user_data.material_consumed,
@@ -62,7 +71,7 @@ function load_user_data(raw_user_data: string, version_data: number) {
         }
 
         case 2: {
-            user_data = JSON.parse(raw_user_data) as UserDataV2;
+            user_data = JSON.parse(raw_user_data) as UserData;
 
             user_data.material_consumed = Object.assign(
                 new Cost(),
@@ -171,9 +180,10 @@ export namespace StatScreen {
                 version: CURRENT_VERSION,
                 data: JSON.stringify(user_data),
             });
-            stat_registry.stat_io.reset_data_output.value = JSON.stringify(
-                make_empty_user_data()
-            );
+            stat_registry.stat_io.reset_data_output.value = JSON.stringify({
+                version: CURRENT_VERSION,
+                data: JSON.stringify(make_empty_user_data()),
+            });
         });
 
         stat_registry.stat_current_war.reset_current_war.addEventListener(
@@ -219,7 +229,7 @@ export namespace StatScreen {
             user_data.time_spent
         );
         stat_registry.time_to_hundred_crate.innerText = duration_to_string(
-            user_data.time_spent / (user_data.crate_crafted / 100)
+            Math.round(user_data.time_spent / (user_data.crate_crafted / 100))
         );
         stat_registry.bmat_used.innerText = number_formatter.format(
             user_data.material_consumed.bmat
@@ -249,9 +259,12 @@ export namespace StatScreen {
         );
         current_war_registry.time_to_hundred_crate.innerText =
             duration_to_string(
-                (user_data.time_spent - war_snapshot.time_spent) /
-                    ((user_data.crate_crafted - war_snapshot.crate_crafted) /
-                        100)
+                Math.round(
+                    (user_data.time_spent - war_snapshot.time_spent) /
+                        ((user_data.crate_crafted -
+                            war_snapshot.crate_crafted) /
+                            100)
+                )
             );
         current_war_registry.bmat_used.innerText = number_formatter.format(
             war_cost.bmat
@@ -266,6 +279,29 @@ export namespace StatScreen {
             war_cost.rmat
         );
 
+        stat_registry.achievement_owned.innerHTML = '';
+        user_data.achievements.forEach((entry) => {
+            const achievement_card_template =
+                DomRegistry.get_achivement_card().cloneNode(
+                    true
+                ) as HTMLTemplateElement;
+            const card_elements = get_template_elements(
+                achievement_card_template,
+                ['achievement-name', 'achievement-howto', 'achievement-fluff']
+            );
+            const achievement = achievement_data[entry.id].tiers[entry.tier];
+
+            card_elements['achievement-name'].textContent = achievement.name;
+            card_elements['achievement-howto'].textContent =
+                achievement.condition_text;
+            card_elements['achievement-fluff'].textContent =
+                achievement.deco_text;
+
+            stat_registry.achievement_owned.appendChild(
+                achievement_card_template.content
+            );
+        });
+
         stat_registry.root_element.className = '';
     }
 
@@ -279,12 +315,22 @@ export namespace StatScreen {
         start_time: number,
         manu_data: ManuData
     ): void {
+        unlocked_achivements = [];
+
         // Do not write any data if no crate was crafted
         if (manu_data.crate_crafted === 0) return;
 
-        const end_time = Date.now();
+        const end_time = Math.ceil(Date.now() / 1000);
+
+        const session_data: UserDataV1 = {
+            crate_crafted: 0,
+            material_consumed: new Cost(),
+            item_crafted: [],
+            time_spent: 0,
+        };
 
         user_data.crate_crafted += manu_data.crate_crafted;
+        session_data.crate_crafted = manu_data.crate_crafted;
 
         manu_data.data.forEach((row) => {
             row.filter((item) => item.crafted_amount !== 0).forEach((item) => {
@@ -292,7 +338,15 @@ export namespace StatScreen {
                     item.crafted_amount,
                     item_data[item.id].cost
                 );
+                session_data.material_consumed.add_multiple(
+                    item.crafted_amount,
+                    item_data[item.id].cost
+                );
 
+                session_data.item_crafted.push({
+                    id: item.id,
+                    amount: item.crafted_amount,
+                });
                 const entry_index = user_data.item_crafted.findIndex(
                     (crafted_item) => crafted_item.id == item.id
                 );
@@ -310,9 +364,54 @@ export namespace StatScreen {
         });
 
         user_data.time_spent += end_time - start_time;
+        session_data.time_spent = end_time - start_time;
+
+        // Unlock eligible achivements
+        achievement_data.forEach((achievement, id) => {
+            const entry = user_data.achievements.find(
+                (entry) => entry.id === id
+            );
+            let current_tier = -1;
+            let index = 0;
+
+            if (entry !== undefined) {
+                index = entry.tier + 1;
+                current_tier = entry.tier;
+            }
+
+            while (index < achievement.tiers.length) {
+                if (
+                    !achievement.tiers[index].condition(session_data, user_data)
+                ) {
+                    break;
+                }
+                index++;
+            }
+
+            // Highest unlocked is tier index-1
+            if (index - 1 > current_tier) {
+                if (entry === undefined) {
+                    user_data.achievements.push({
+                        id: id,
+                        tier: index - 1,
+                    });
+                } else {
+                    entry.tier = index - 1;
+                }
+
+                unlocked_achivements.push({
+                    id: id,
+                    tier: index - 1,
+                });
+            }
+        });
 
         if (enable_local_storage) {
             window.localStorage.setItem(DATA_KEY, JSON.stringify(user_data));
         }
+    }
+
+    export function get_unlocked_achivements(): AchievementEntry[] {
+        return unlocked_achivements;
     }
 }
