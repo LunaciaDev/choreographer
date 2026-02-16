@@ -3,6 +3,7 @@ import { ItemType } from '../types/item-type';
 export type ItemData = {
     name: string;
     alt_names?: string[];
+    shockbot_id: number;
     type: ItemType;
     cost: {
         bmat: number;
@@ -33,6 +34,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Neville AT Rifle',
         alt_names: ['20 Neville Anti-Tank Rifle'],
+        shockbot_id: 39,
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 150,
@@ -44,6 +46,7 @@ export const item_data: ItemData[] = [
     {
         name: '14.5mm',
         alt_names: ['14.5mm Ammo'],
+        shockbot_id: 126,
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 100,
@@ -55,6 +58,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Varsi AT Grenade',
         alt_names: ['B2 Varsi Anti-Tank Grenade'],
+        shockbot_id: 43,
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 95,
@@ -66,6 +70,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Mounted Bonesaw',
         alt_names: ['Mounted Bonesaw MK.3'],
+        shockbot_id: 38,
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 100,
@@ -77,6 +82,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Bonesaw Mk3',
         alt_names: ['Bonesaw MK.3', 'Bonesaw'],
+        shockbot_id: 30,
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 100,
@@ -88,6 +94,7 @@ export const item_data: ItemData[] = [
     {
         name: 'ARC/RPG',
         alt_names: ['ARC RPG Ammo'],
+        shockbot_id: 28,
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 60,
@@ -99,6 +106,7 @@ export const item_data: ItemData[] = [
     {
         name: "Willow's Bane Flamethrower",
         alt_names: ['Willow’s Bane Model 845', "Willow's Bane"],
+        shockbot_id: 45,
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 165,
@@ -110,6 +118,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Tremola Grenade',
         alt_names: ['Tremola Grenade GPb-1'],
+        shockbot_id: 42,
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 75,
@@ -121,6 +130,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Malone Ratcatcher',
         alt_names: ['Malone Ratcatcher MK.1'],
+        shockbot_id: 35,
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 100,
@@ -132,6 +142,7 @@ export const item_data: ItemData[] = [
     {
         name: '30mm',
         alt_names: ['30mm Ammo'],
+        shockbot_id: 27,
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 80,
@@ -143,6 +154,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Cremari Mortar',
         type: ItemType.HEAVY_ARM,
+        shockbot_id: 31,
         cost: {
             bmat: 100,
             emat: 0,
@@ -153,6 +165,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Flare Mortar Shell',
         type: ItemType.HEAVY_ARM,
+        shockbot_id: 34,
         cost: {
             bmat: 60,
             emat: 15,
@@ -163,6 +176,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Shrapnel Mortar Shell',
         type: ItemType.HEAVY_ARM,
+        shockbot_id: 41,
         cost: {
             bmat: 60,
             emat: 20,
@@ -173,6 +187,7 @@ export const item_data: ItemData[] = [
     {
         name: 'HE Mortar Shell',
         alt_names: ['Mortar Shell'],
+        shockbot_id: 37,
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 60,
@@ -184,6 +199,7 @@ export const item_data: ItemData[] = [
     {
         name: 'White Ash Flask Grenade',
         alt_names: ['BF5 White Ash Flask Grenade'],
+        shockbot_id: 44,
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 100,
@@ -195,6 +211,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Mammon 91-b',
         alt_names: ['Mammon 91 B'],
+        shockbot_id: 36,
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 100,
@@ -206,6 +223,7 @@ export const item_data: ItemData[] = [
     {
         name: 'AT Sticky',
         alt_names: ['Anti-Tank Sticky Bomb', 'AT Sticky Grenade'],
+        shockbot_id: 29,
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 50,
@@ -217,6 +235,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Carnyx AT Launcher',
         alt_names: ['Carnyx Anti-Tank Rocket Launcher'],
+        shockbot_id: 87,
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 125,
@@ -228,6 +247,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Cutler Foebreaker',
         type: ItemType.HEAVY_ARM,
+        shockbot_id: 32,
         cost: {
             bmat: 100,
             emat: 0,
@@ -238,6 +258,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Cutler Launcher',
         alt_names: ['Cutler Launcher 4'],
+        shockbot_id: 33,
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 100,
@@ -249,6 +270,7 @@ export const item_data: ItemData[] = [
     {
         name: 'RPG',
         alt_names: ['RPG Shell'],
+        shockbot_id: 40,
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 60,
@@ -260,6 +282,7 @@ export const item_data: ItemData[] = [
     {
         name: '150mm',
         alt_names: ['150mm Shell'],
+        shockbot_id: 49,
         type: ItemType.HEAVY_SHELL,
         cost: {
             bmat: 120,
@@ -271,6 +294,7 @@ export const item_data: ItemData[] = [
     {
         name: '120mm',
         alt_names: ['120mm Shell'],
+        shockbot_id: 48,
         type: ItemType.HEAVY_SHELL,
         cost: {
             bmat: 120,
@@ -282,6 +306,7 @@ export const item_data: ItemData[] = [
     {
         name: '250mm "Purity"',
         alt_names: ['250mm "Purity" Shell'],
+        shockbot_id: 50,
         type: ItemType.HEAVY_SHELL,
         cost: {
             bmat: 120,
@@ -293,6 +318,7 @@ export const item_data: ItemData[] = [
     {
         name: '68mm',
         alt_names: ['68mm Shell'],
+        shockbot_id: 47,
         type: ItemType.HEAVY_SHELL,
         cost: {
             bmat: 120,
@@ -304,6 +330,7 @@ export const item_data: ItemData[] = [
     {
         name: '40mm',
         alt_names: ['40mm Shell'],
+        shockbot_id: 46,
         type: ItemType.HEAVY_SHELL,
         cost: {
             bmat: 160,
@@ -315,6 +342,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Booker Storm Rifle',
         alt_names: ['Booker Storm Rifle Model 838'],
+        shockbot_id: 9,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 0,
@@ -326,6 +354,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Aalto Storm Rifle',
         alt_names: ['Aalto Storm Rifle 24'],
+        shockbot_id: 7,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 0,
@@ -337,6 +366,7 @@ export const item_data: ItemData[] = [
     {
         name: '7.92mm',
         alt_names: ['7.92mm Ammo'],
+        shockbot_id: 3,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 120,
@@ -348,6 +378,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Malone Mk2',
         alt_names: ['Malone MK.2', 'Malone Mk.2 HMG'],
+        shockbot_id: 23,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 0,
@@ -359,6 +390,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Harpa Frag Grenade',
         alt_names: ['A3 Harpa Fragmentation Grenade', 'Harpa Grenade'],
+        shockbot_id: 19,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 100,
@@ -370,6 +402,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Cascadier',
         alt_names: ['Cascadier 873'],
+        shockbot_id: 12,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 60,
@@ -381,6 +414,7 @@ export const item_data: ItemData[] = [
     {
         name: '8mm',
         alt_names: ['8mm Ammo'],
+        shockbot_id: 4,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 40,
@@ -392,6 +426,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Cometa Revolver',
         alt_names: ['Cometa T2-9'],
+        shockbot_id: 15,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 60,
@@ -403,6 +438,7 @@ export const item_data: ItemData[] = [
     {
         name: 'The Hangman',
         alt_names: ['The Hangman 757', 'Hangman'],
+        shockbot_id: 18,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 125,
@@ -415,6 +451,7 @@ export const item_data: ItemData[] = [
         name: '.44',
         alt_names: ['.44 Ammo'],
         type: ItemType.LIGHT_ARM,
+        shockbot_id: 1,
         cost: {
             bmat: 40,
             emat: 0,
@@ -425,6 +462,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Sampo Auto-Rifle',
         alt_names: ['Sampo Auto-Rifle 77', 'Sampo Autorifle'],
+        shockbot_id: 24,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 125,
@@ -436,6 +474,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Blakerow Rifle',
         alt_names: ['Blakerow 871'],
+        shockbot_id: 8,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 140,
@@ -447,6 +486,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Clancy Cinder',
         alt_names: ['Clancy Cinder M3', 'Clancy Cinder LR'],
+        shockbot_id: 13,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 130,
@@ -458,6 +498,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Hawthorne',
         alt_names: ['No.2B Hawthorne'],
+        shockbot_id: 20,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 70,
@@ -469,6 +510,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Loughcaster',
         alt_names: ['No.2 Loughcaster'],
+        shockbot_id: 22,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 100,
@@ -480,6 +522,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Clancy-Raca Sniper',
         alt_names: ['Clancy-Raca M4'],
+        shockbot_id: 14,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 250,
@@ -491,6 +534,7 @@ export const item_data: ItemData[] = [
     {
         name: '7.62mm',
         alt_names: ['7.62mm Ammo'],
+        shockbot_id: 2,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 80,
@@ -502,6 +546,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Buckshot',
         alt_names: ['Buckshot Ammo'],
+        shockbot_id: 11,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 80,
@@ -514,6 +559,7 @@ export const item_data: ItemData[] = [
         name: 'Liar SMG',
         // ???? why the odd quote
         alt_names: ['No.1 “The Liar” Submachinegun'],
+        shockbot_id: 21,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 120,
@@ -525,6 +571,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Fiddler SMG',
         alt_names: ['Fiddler Submachine Gun Model 868'],
+        shockbot_id: 16,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 120,
@@ -536,6 +583,7 @@ export const item_data: ItemData[] = [
     {
         name: '9mm',
         alt_names: ['9mm Ammo'],
+        shockbot_id: 5,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 80,
@@ -547,6 +595,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Smoke Grenade',
         alt_names: ['PT-815 Smoke Grenade'],
+        shockbot_id: 25,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 80,
@@ -558,6 +607,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Green Ash Grenade',
         type: ItemType.LIGHT_ARM,
+        shockbot_id: 17,
         cost: {
             bmat: 140,
             emat: 0,
@@ -568,6 +618,7 @@ export const item_data: ItemData[] = [
     {
         name: '12.7mm',
         alt_names: ['12.7mm Ammo'],
+        shockbot_id: 6,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 100,
@@ -579,6 +630,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Pillory Scattergun',
         alt_names: ['No.4 The Pillory Scattergun'],
+        shockbot_id: 86,
         type: ItemType.LIGHT_ARM,
         cost: {
             bmat: 80,
@@ -590,6 +642,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Bandages',
         type: ItemType.MEDICAL,
+        shockbot_id: 72,
         cost: {
             bmat: 80,
             emat: 0,
@@ -600,6 +653,7 @@ export const item_data: ItemData[] = [
     {
         name: 'First Aid Kit',
         type: ItemType.MEDICAL,
+        shockbot_id: 74,
         cost: {
             bmat: 60,
             emat: 0,
@@ -610,6 +664,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Trauma Kit',
         type: ItemType.MEDICAL,
+        shockbot_id: 76,
         cost: {
             bmat: 80,
             emat: 0,
@@ -620,6 +675,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Blood Plasma',
         type: ItemType.MEDICAL,
+        shockbot_id: 73,
         cost: {
             bmat: 80,
             emat: 0,
@@ -630,6 +686,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Soldier Supplies',
         type: ItemType.MEDICAL,
+        shockbot_id: 75,
         cost: {
             bmat: 80,
             emat: 0,
@@ -641,6 +698,7 @@ export const item_data: ItemData[] = [
         name: 'Specialist (Heavy)',
         // here too??
         alt_names: ['Specialist’s Overcoat', "Specialist's Overcoat"],
+        shockbot_id: 84,
         type: ItemType.UNIFORM,
         cost: {
             bmat: 100,
@@ -653,6 +711,7 @@ export const item_data: ItemData[] = [
         name: 'Gunner (Knight)',
         // mannnnn
         alt_names: ['Gunner’s Breastplate', "Gunner's Breastplate"],
+        shockbot_id: 78,
         type: ItemType.UNIFORM,
         cost: {
             bmat: 100,
@@ -664,6 +723,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Sapper (Engineer)',
         alt_names: ['Sapper Gear'],
+        shockbot_id: 83,
         type: ItemType.UNIFORM,
         cost: {
             bmat: 100,
@@ -675,6 +735,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Physician (Medic)',
         alt_names: ['Physician’s Jacket', "Physician's Jacket"],
+        shockbot_id: 82,
         type: ItemType.UNIFORM,
         cost: {
             bmat: 100,
@@ -686,6 +747,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Officer (Larp)',
         alt_names: ['Officer’s Regalia', "Officer's Regalia"],
+        shockbot_id: 79,
         type: ItemType.UNIFORM,
         cost: {
             bmat: 100,
@@ -697,6 +759,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Outrider (Scout)',
         alt_names: ['Outrider’s Mantle', "Outrider's Mantle"],
+        shockbot_id: 80,
         type: ItemType.UNIFORM,
         cost: {
             bmat: 100,
@@ -708,6 +771,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Parka',
         alt_names: ['Caoivish Parka'],
+        shockbot_id: 77,
         type: ItemType.UNIFORM,
         cost: {
             bmat: 100,
@@ -719,6 +783,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Boiler Suit (Tanker)',
         alt_names: ['Padded Boiler Suit'],
+        shockbot_id: 81,
         type: ItemType.UNIFORM,
         cost: {
             bmat: 100,
@@ -730,6 +795,7 @@ export const item_data: ItemData[] = [
     {
         name: "Gentleman's Peacoat (Sailor)",
         alt_names: ['Gentleman’s Peacoat', "Gentleman's Peacoat"],
+        shockbot_id: 90,
         type: ItemType.UNIFORM,
         cost: {
             bmat: 100,
@@ -741,6 +807,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Barbed Wire',
         type: ItemType.UTILITIES,
+        shockbot_id: 52,
         cost: {
             bmat: 15,
             emat: 0,
@@ -751,6 +818,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Binoculars',
         type: ItemType.UTILITIES,
+        shockbot_id: 53,
         cost: {
             bmat: 75,
             emat: 0,
@@ -761,6 +829,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Havoc Charge',
         type: ItemType.UTILITIES,
+        shockbot_id: 57,
         cost: {
             bmat: 75,
             emat: 0,
@@ -771,6 +840,7 @@ export const item_data: ItemData[] = [
     {
         name: "Willow's Bane Ammo",
         type: ItemType.UTILITIES,
+        shockbot_id: 69,
         cost: {
             bmat: 135,
             emat: 0,
@@ -781,6 +851,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Listening Kit',
         type: ItemType.UTILITIES,
+        shockbot_id: 59,
         cost: {
             bmat: 150,
             emat: 0,
@@ -791,6 +862,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Wind Sock',
         type: ItemType.UTILITIES,
+        shockbot_id: 70,
         cost: {
             bmat: 150,
             emat: 0,
@@ -801,6 +873,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Metal Beam',
         type: ItemType.UTILITIES,
+        shockbot_id: 60,
         cost: {
             bmat: 25,
             emat: 0,
@@ -811,6 +884,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Radio Backpack',
         type: ItemType.UTILITIES,
+        shockbot_id: 63,
         cost: {
             bmat: 150,
             emat: 0,
@@ -821,6 +895,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Sandbag',
         type: ItemType.UTILITIES,
+        shockbot_id: 64,
         cost: {
             bmat: 15,
             emat: 0,
@@ -831,6 +906,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Havoc Charge Detonator',
         type: ItemType.UTILITIES,
+        shockbot_id: 58,
         cost: {
             bmat: 75,
             emat: 0,
@@ -841,6 +917,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Alligator Charge',
         type: ItemType.UTILITIES,
+        shockbot_id: 51,
         cost: {
             bmat: 100,
             emat: 80,
@@ -851,6 +928,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Shovel',
         type: ItemType.UTILITIES,
+        shockbot_id: 65,
         cost: {
             bmat: 200,
             emat: 0,
@@ -861,6 +939,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Sledgehammer',
         alt_names: ['Sledge Hammer'],
+        shockbot_id: 66,
         type: ItemType.UTILITIES,
         cost: {
             bmat: 200,
@@ -872,6 +951,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Tripod',
         type: ItemType.UTILITIES,
+        shockbot_id: 67,
         cost: {
             bmat: 100,
             emat: 0,
@@ -882,6 +962,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Wrench',
         type: ItemType.UTILITIES,
+        shockbot_id: 71,
         cost: {
             bmat: 75,
             emat: 0,
@@ -892,6 +973,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Water Bucket',
         type: ItemType.UTILITIES,
+        shockbot_id: 68,
         cost: {
             bmat: 80,
             emat: 0,
@@ -902,6 +984,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Buckhorn CCQ-18',
         alt_names: ['Buckhorn CCQ 18'],
+        shockbot_id: 54,
         type: ItemType.UTILITIES,
         cost: {
             bmat: 40,
@@ -913,6 +996,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Falias Raiding Club',
         type: ItemType.UTILITIES,
+        shockbot_id: 89,
         cost: {
             bmat: 200,
             emat: 0,
@@ -923,6 +1007,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Gas Mask',
         type: ItemType.UTILITIES,
+        shockbot_id: 55,
         cost: {
             bmat: 160,
             emat: 0,
@@ -933,6 +1018,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Gas Mask Filter',
         type: ItemType.UTILITIES,
+        shockbot_id: 56,
         cost: {
             bmat: 100,
             emat: 0,
@@ -943,6 +1029,7 @@ export const item_data: ItemData[] = [
     {
         name: 'The Ospreay',
         alt_names: ['Ospreay'],
+        shockbot_id: 61,
         type: ItemType.UTILITIES,
         cost: {
             bmat: 85,
@@ -954,6 +1041,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Radio',
         type: ItemType.UTILITIES,
+        shockbot_id: 62,
         cost: {
             bmat: 75,
             emat: 0,
@@ -964,6 +1052,7 @@ export const item_data: ItemData[] = [
     {
         name: 'AP/RPG',
         alt_names: ['AP RPG Ammo'],
+        shockbot_id: 88,
         type: ItemType.HEAVY_ARM,
         cost: {
             bmat: 60,
@@ -975,6 +1064,7 @@ export const item_data: ItemData[] = [
     {
         name: 'Shatter Missle',
         type: ItemType.HEAVY_SHELL,
+        shockbot_id: 406,
         cost: {
             bmat: 250,
             emat: 0,
@@ -984,6 +1074,8 @@ export const item_data: ItemData[] = [
     },
     {
         name: '250mm "Fury" Shell',
+        alt_names: ['Fury Shell'],
+        shockbot_id: 414,
         type: ItemType.HEAVY_SHELL,
         cost: {
             bmat: 250,
@@ -995,6 +1087,7 @@ export const item_data: ItemData[] = [
     {
         name: '20mm',
         alt_names: ['20mm Ammo'],
+        shockbot_id: 26,
         type: ItemType.HEAVY_SHELL,
         cost: {
             bmat: 120,
@@ -1005,6 +1098,7 @@ export const item_data: ItemData[] = [
     },
     {
         name: 'E681-B Hullbreaker Mine',
+        shockbot_id: 415,
         type: ItemType.HEAVY_SHELL,
         cost: {
             bmat: 120,
@@ -1015,6 +1109,7 @@ export const item_data: ItemData[] = [
     },
     {
         name: 'Liaison Transmitter',
+        shockbot_id: 422,
         type: ItemType.UTILITIES,
         cost: {
             bmat: 75,
@@ -1025,6 +1120,8 @@ export const item_data: ItemData[] = [
     },
     {
         name: 'Anti-Aircraft Shell',
+        alt_names: ['950-70b Anti-Aircraft Shell'],
+        shockbot_id: 416,
         type: ItemType.HEAVY_SHELL,
         cost: {
             bmat: 100,

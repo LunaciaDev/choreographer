@@ -8,6 +8,7 @@ import {
 } from '../helper';
 import { Cost } from '../types/item-cost';
 import type { ManuData } from '../types/manu-data';
+import type { ItemCraftedEntry } from '../types/user-data';
 import { DomRegistry, type ResultRegistry } from './dom-registry';
 import { StatScreen } from './stat-screen';
 
@@ -44,6 +45,7 @@ export namespace ResultScreen {
 
         const amount_crafted = manu_data.crate_crafted;
         const total_cost = new Cost();
+        const shockbot_output: ItemCraftedEntry[] = [];
 
         manu_data.data.forEach((row) => {
             row.filter((item) => item.crafted_amount !== 0).forEach((item) => {
@@ -52,6 +54,10 @@ export namespace ResultScreen {
                     item_data[item.id].cost
                 );
                 add_line(item.id, item.crafted_amount);
+                shockbot_output.push({
+                    id: item_data[item.id].shockbot_id,
+                    amount: item.crafted_amount,
+                });
             });
         });
 
@@ -134,6 +140,8 @@ export namespace ResultScreen {
                 );
             });
         }
+
+        result_registry.shockbot_export.value = JSON.stringify(shockbot_output);
 
         function add_line(item_id: number, amount: number) {
             const item = item_data[item_id];

@@ -83,6 +83,7 @@ export type ResultRegistry = {
     item_card_template: HTMLTemplateElement;
     achievement_unlocked: HTMLElement;
     achievement_header: HTMLElement;
+    shockbot_export: HTMLTextAreaElement;
 };
 
 export type StatRegistry = {
@@ -285,6 +286,9 @@ export namespace DomRegistry {
                 'result-achievements-unlocked'
             ),
             achievement_header: get_element_reference('result-achievements-hd'),
+            shockbot_export: get_element_reference(
+                'result-shockbot-export'
+            ) as HTMLTextAreaElement,
         };
         stat_registry = {
             stat_io: {

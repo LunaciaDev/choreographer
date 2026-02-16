@@ -243,8 +243,18 @@ input[type=number]::-webkit-outer-spin-button
         font-weight: normal
         color: $text
 
-#result-view .table
-    width: 50vw
+#result-view 
+    .table, textarea, label
+        width: 50vw
+
+    label
+        display: block
+        margin: 1rem auto 0.5rem auto
+
+    textarea
+        display: block
+        padding: 10px
+        margin: 0 auto
 
 select
     background-color: $crust
@@ -549,10 +559,10 @@ select
     #manu-view
         width: 75vw
 
-    #result-view .table
-        width: 75vw
+    #result-view
+        .table, textarea, label
+            width: 75vw
 
-    
     #stat-import-export-overlay
         .overlay-content
             flex-direction: column
