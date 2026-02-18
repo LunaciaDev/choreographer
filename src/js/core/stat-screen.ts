@@ -228,9 +228,12 @@ export namespace StatScreen {
         stat_registry.time_spent.innerText = duration_to_string(
             user_data.time_spent
         );
-        stat_registry.time_to_hundred_crate.innerText = duration_to_string(
-            Math.round(user_data.time_spent / (user_data.crate_crafted / 100))
-        );
+        stat_registry.craft_speed.innerText = (
+            user_data.crate_crafted /
+            (user_data.time_spent / 60)
+        )
+            .toFixed(2)
+            .toString();
         stat_registry.bmat_used.innerText = number_formatter.format(
             user_data.material_consumed.bmat
         );
@@ -257,15 +260,12 @@ export namespace StatScreen {
         current_war_registry.time_spent.innerText = duration_to_string(
             user_data.time_spent - war_snapshot.time_spent
         );
-        current_war_registry.time_to_hundred_crate.innerText =
-            duration_to_string(
-                Math.round(
-                    (user_data.time_spent - war_snapshot.time_spent) /
-                        ((user_data.crate_crafted -
-                            war_snapshot.crate_crafted) /
-                            100)
-                )
-            );
+        current_war_registry.craft_speed.innerText = (
+            (user_data.crate_crafted - war_snapshot.crate_crafted) /
+            ((user_data.time_spent - war_snapshot.time_spent) / 60)
+        )
+            .toFixed(2)
+            .toString();
         current_war_registry.bmat_used.innerText = number_formatter.format(
             war_cost.bmat
         );

@@ -93,7 +93,7 @@ export type StatRegistry = {
     start_config_button: HTMLButtonElement;
     crate_count: HTMLElement;
     time_spent: HTMLElement;
-    time_to_hundred_crate: HTMLElement;
+    craft_speed: HTMLElement;
     bmat_used: HTMLElement;
     emat_used: HTMLElement;
     hemat_used: HTMLElement;
@@ -105,7 +105,7 @@ export type StatCurrentWar = {
     reset_current_war: HTMLButtonElement;
     crate_count: HTMLElement;
     time_spent: HTMLElement;
-    time_to_hundred_crate: HTMLElement;
+    craft_speed: HTMLElement;
     bmat_used: HTMLElement;
     emat_used: HTMLElement;
     hemat_used: HTMLElement;
@@ -318,9 +318,7 @@ export namespace DomRegistry {
                 ) as HTMLButtonElement,
                 crate_count: get_element_reference('stat-war-crate-count'),
                 time_spent: get_element_reference('stat-war-time-spent'),
-                time_to_hundred_crate: get_element_reference(
-                    'stat-war-time-hundred-crate'
-                ),
+                craft_speed: get_element_reference('stat-war-craft-speed'),
                 bmat_used: get_element_reference('stat-war-bmat-used'),
                 emat_used: get_element_reference('stat-war-emat-used'),
                 hemat_used: get_element_reference('stat-war-hemat-used'),
@@ -332,9 +330,7 @@ export namespace DomRegistry {
             root_element: get_element_reference('stat-view'),
             crate_count: get_element_reference('stat-crate-count'),
             time_spent: get_element_reference('stat-time-spent'),
-            time_to_hundred_crate: get_element_reference(
-                'stat-time-hundred-crate'
-            ),
+            craft_speed: get_element_reference('stat-craft-speed'),
             bmat_used: get_element_reference('stat-bmat-used'),
             emat_used: get_element_reference('stat-emat-used'),
             hemat_used: get_element_reference('stat-hemat-used'),
