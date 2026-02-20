@@ -1,3 +1,3 @@
-npx prettier src/* --check
-npx eslint src/js/*
-npx tsc --noEmit
+bunx prettier src/* --check
+bunx eslint src/js/*
+bunx tsc --noEmit
