@@ -64,7 +64,7 @@ $blue: #89b4fa
 $lavender: #b4befe
 $text: #cdd6f4
 $subtext1: #bac2de
-$subtext0: #bac2de
+$subtext0: #a6adc8
 $overlay2: #9399b2
 $overlay1: #7f849c
 $overlay0: #6c7086
@@ -438,6 +438,56 @@ select
     text-align: center
     margin-bottom: 1.5rem
 
+/** Statcard Builder
+
+#statcard-image
+    width: 80vw
+
+#statcard-view
+    width: fit-content
+    margin: 0 auto
+
+    div
+        width: fit-content
+        margin: 0 auto 0.5rem auto
+
+    .group, img
+        margin: 0 auto
+
+    .group
+        width: fit-content
+        margin: 0.5rem auto 0 auto
+        gap: 10px
+        flex-wrap: wrap
+        flex-direction: column
+
+        input
+            max-width: 50ch
+            width: fit-content
+
+        label
+            display: flex
+            align-items: center
+            width: fit-content
+
+    #statcard-pfp-label
+        background-color: $surface0
+        border: 0
+        padding: 5px 10px
+        border-radius: 4px
+        color: $text
+        height: fit-content
+        width: fit-content
+
+    #statcard-pfp-label:hover
+        background-color: $surface1
+
+    #statcard-pfp-label:active
+        background-color: $surface2
+
+    input[type="file"]
+        display: none
+
 /** Item Card
 
 .item-card
@@ -563,6 +613,10 @@ select
         .table, textarea, label
             width: 75vw
 
+    #statcard-view
+        img
+            width: 90vw
+
     #stat-import-export-overlay
         .overlay-content
             flex-direction: column
@@ -579,6 +633,10 @@ select
 @media (max-width: 700px)
     #stat-material
         width: 95vw
+
+    #statcard-view
+        img
+            width: 100vw
 
     #stat-basic, .stat-button-group
         width: 95vw
