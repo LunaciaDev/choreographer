@@ -17,6 +17,7 @@ import {
 } from '../types/user-data';
 import { ConfigScreen } from './config-screen';
 import { DomRegistry, type StatRegistry } from './dom-registry';
+import { StatcardScreen } from './statcard-screen';
 
 let stat_registry: StatRegistry;
 
@@ -186,6 +187,12 @@ export namespace StatScreen {
             });
         });
 
+        stat_registry.view_statcard_button.addEventListener('click', () => {
+            stat_registry.start_config_button.className = 'hidden';
+            stat_registry.root_element.className = 'hidden';
+            StatcardScreen.show();
+        });
+
         stat_registry.stat_current_war.reset_current_war.addEventListener(
             'click',
             () => {
@@ -228,21 +235,24 @@ export namespace StatScreen {
         stat_registry.time_spent.innerText = duration_to_string(
             user_data.time_spent
         );
-        stat_registry.time_to_hundred_crate.innerText = duration_to_string(
-            Math.round(user_data.time_spent / (user_data.crate_crafted / 100))
-        );
-        stat_registry.bmat_used.innerText = number_formatter.format(
-            user_data.material_consumed.bmat
-        );
-        stat_registry.emat_used.innerText = number_formatter.format(
-            user_data.material_consumed.emat
-        );
-        stat_registry.hemat_used.innerText = number_formatter.format(
-            user_data.material_consumed.hemat
-        );
-        stat_registry.rmat_used.innerText = number_formatter.format(
-            user_data.material_consumed.rmat
-        );
+        stat_registry.craft_speed.innerText = (
+            user_data.crate_crafted /
+            (user_data.time_spent / 60)
+        )
+            .toFixed(2)
+            .toString();
+        stat_registry.bmat_used.innerText = number_formatter
+            .format(user_data.material_consumed.bmat)
+            .toLowerCase();
+        stat_registry.emat_used.innerText = number_formatter
+            .format(user_data.material_consumed.emat)
+            .toLowerCase();
+        stat_registry.hemat_used.innerText = number_formatter
+            .format(user_data.material_consumed.hemat)
+            .toLowerCase();
+        stat_registry.rmat_used.innerText = number_formatter
+            .format(user_data.material_consumed.rmat)
+            .toLowerCase();
 
         // Current War Stat
         // Delta between lifetime stat and the snapshot taken
@@ -257,27 +267,24 @@ export namespace StatScreen {
         current_war_registry.time_spent.innerText = duration_to_string(
             user_data.time_spent - war_snapshot.time_spent
         );
-        current_war_registry.time_to_hundred_crate.innerText =
-            duration_to_string(
-                Math.round(
-                    (user_data.time_spent - war_snapshot.time_spent) /
-                        ((user_data.crate_crafted -
-                            war_snapshot.crate_crafted) /
-                            100)
-                )
-            );
-        current_war_registry.bmat_used.innerText = number_formatter.format(
-            war_cost.bmat
-        );
-        current_war_registry.emat_used.innerText = number_formatter.format(
-            war_cost.emat
-        );
-        current_war_registry.hemat_used.innerText = number_formatter.format(
-            war_cost.hemat
-        );
-        current_war_registry.rmat_used.innerText = number_formatter.format(
-            war_cost.rmat
-        );
+        current_war_registry.craft_speed.innerText = (
+            (user_data.crate_crafted - war_snapshot.crate_crafted) /
+            ((user_data.time_spent - war_snapshot.time_spent) / 60)
+        )
+            .toFixed(2)
+            .toString();
+        current_war_registry.bmat_used.innerText = number_formatter
+            .format(war_cost.bmat)
+            .toLowerCase();
+        current_war_registry.emat_used.innerText = number_formatter
+            .format(war_cost.emat)
+            .toLowerCase();
+        current_war_registry.hemat_used.innerText = number_formatter
+            .format(war_cost.hemat)
+            .toLowerCase();
+        current_war_registry.rmat_used.innerText = number_formatter
+            .format(war_cost.rmat)
+            .toLowerCase();
 
         stat_registry.achievement_owned.innerHTML = '';
         user_data.achievements.forEach((entry) => {
@@ -413,5 +420,9 @@ export namespace StatScreen {
 
     export function get_unlocked_achivements(): AchievementEntry[] {
         return unlocked_achivements;
+    }
+
+    export function get_user_data(): UserData {
+        return user_data;
     }
 }

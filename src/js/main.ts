@@ -5,6 +5,7 @@ import { ResultScreen } from './core/result-screen';
 import { StatScreen } from './core/stat-screen';
 import { DomRegistry } from './core/dom-registry';
 import { ManuScreen } from './core/manu-screen';
+import { StatcardScreen } from './core/statcard-screen';
 
 document.addEventListener('DOMContentLoaded', () => {
     DomRegistry.init();
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ResultScreen.init();
     StatScreen.init();
     ManuScreen.init();
+    StatcardScreen.init();
 
     StatScreen.show();
 });

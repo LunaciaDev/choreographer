@@ -232,44 +232,36 @@ export const achievement_data: AchievementData[] = [
                 name: 'Achievement_E1',
                 condition: (session, _) =>
                     session.crate_crafted >= 300 &&
-                    Math.round(
-                        session.time_spent / (session.crate_crafted / 100)
-                    ) <= 1440,
+                    session.crate_crafted / (session.time_spent / 60) >= 4.1,
                 condition_text:
-                    'Maintained a pace at least 100 crates every 24 minutes in a session making over 300 crates.',
+                    'Made at least 4.1 crates per minute in a session making over 300 crates.',
                 deco_text: 'Achivement_DecoE1',
             },
             {
                 name: 'Achievement_E2',
                 condition: (session, _) =>
                     session.crate_crafted >= 300 &&
-                    Math.round(
-                        session.time_spent / (session.crate_crafted / 100)
-                    ) <= 1200,
+                    session.crate_crafted / (session.time_spent / 60) >= 5,
                 condition_text:
-                    'Maintained a pace at least 100 crates every 20 minutes in a session making over 300 crates.',
+                    'Made at least 5 crates per minute in a session making over 300 crates.',
                 deco_text: 'Achivement_DecoE2',
             },
             {
                 name: 'Achievement_E3',
                 condition: (session, _) =>
                     session.crate_crafted >= 300 &&
-                    Math.round(
-                        session.time_spent / (session.crate_crafted / 100)
-                    ) <= 1080,
+                    session.crate_crafted / (session.time_spent / 60) >= 5.5,
                 condition_text:
-                    'Maintained a pace at least 100 crates every 18 minutes in a session making over 300 crates.',
+                    'Made at least 5.5 crates per minute in a session making over 300 crates.',
                 deco_text: 'Achivement_DecoE3',
             },
             {
                 name: 'Maximum Overdrive',
                 condition: (session, _) =>
                     session.crate_crafted >= 300 &&
-                    Math.round(
-                        session.time_spent / (session.crate_crafted / 100)
-                    ) <= 960,
+                    session.crate_crafted / (session.time_spent / 60) >= 6.2,
                 condition_text:
-                    'Maintained a pace at least 100 crates every 16 minutes in a session making over 300 crates.',
+                    'Made at least 6.2 crates per minute in a session making over 300 crates.',
                 deco_text: 'How did you go that fast..?',
             },
         ],

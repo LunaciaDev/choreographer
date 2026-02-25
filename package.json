@@ -4,19 +4,13 @@
   "version": "1.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "check": "eslint src/js/* && tsc --noEmit",
-    "format": "prettier src/* --write",
-    "prepare": "node .husky/install.mjs"
+    "dev": "bunx --bun vite",
+    "build": "bunx --bun vite build",
+    "format": "bunx prettier src/* --write"
   },
   "devDependencies": {
-    "eslint": "^9.32.0",
-    "eslint-config-prettier": "^10.1.8",
-    "husky": "^9.1.7",
     "prettier": "^3.6.2",
-    "typescript-eslint": "^8.38.0"
+    "@types/bun": "latest"
   },
   "dependencies": {
     "sass": "^1.89.2",

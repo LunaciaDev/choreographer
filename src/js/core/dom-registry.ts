@@ -93,19 +93,20 @@ export type StatRegistry = {
     start_config_button: HTMLButtonElement;
     crate_count: HTMLElement;
     time_spent: HTMLElement;
-    time_to_hundred_crate: HTMLElement;
+    craft_speed: HTMLElement;
     bmat_used: HTMLElement;
     emat_used: HTMLElement;
     hemat_used: HTMLElement;
     rmat_used: HTMLElement;
     achievement_owned: HTMLElement;
+    view_statcard_button: HTMLButtonElement;
 };
 
 export type StatCurrentWar = {
     reset_current_war: HTMLButtonElement;
     crate_count: HTMLElement;
     time_spent: HTMLElement;
-    time_to_hundred_crate: HTMLElement;
+    craft_speed: HTMLElement;
     bmat_used: HTMLElement;
     emat_used: HTMLElement;
     hemat_used: HTMLElement;
@@ -122,6 +123,15 @@ export type StatIO = {
     overlay_element: HTMLElement;
 };
 
+export type StatcardRegistry = {
+    root_element: HTMLElement;
+    image: HTMLImageElement;
+    name_input: HTMLInputElement;
+    clantag_input: HTMLInputElement;
+    avatar_input: HTMLInputElement;
+    return_button: HTMLButtonElement;
+};
+
 function get_element_reference(id: string): HTMLElement {
     const node = document.getElementById(id);
 
@@ -136,6 +146,7 @@ let config_registry: ConfigRegistry;
 let manu_registry: ManuRegistry;
 let result_registry: ResultRegistry;
 let stat_registry: StatRegistry;
+let statcard_registry: StatcardRegistry;
 let title: HTMLElement;
 let achivement_template: HTMLTemplateElement;
 
@@ -270,7 +281,7 @@ export namespace DomRegistry {
             crate_crafted: get_element_reference('result-crate'),
             item_crafted: get_element_reference('result-item-crafted'),
             return_button: get_element_reference(
-                'return-button'
+                'result-return-button'
             ) as HTMLButtonElement,
             item_card_template: get_element_reference(
                 'result-item-card'
@@ -318,9 +329,7 @@ export namespace DomRegistry {
                 ) as HTMLButtonElement,
                 crate_count: get_element_reference('stat-war-crate-count'),
                 time_spent: get_element_reference('stat-war-time-spent'),
-                time_to_hundred_crate: get_element_reference(
-                    'stat-war-time-hundred-crate'
-                ),
+                craft_speed: get_element_reference('stat-war-craft-speed'),
                 bmat_used: get_element_reference('stat-war-bmat-used'),
                 emat_used: get_element_reference('stat-war-emat-used'),
                 hemat_used: get_element_reference('stat-war-hemat-used'),
@@ -332,14 +341,31 @@ export namespace DomRegistry {
             root_element: get_element_reference('stat-view'),
             crate_count: get_element_reference('stat-crate-count'),
             time_spent: get_element_reference('stat-time-spent'),
-            time_to_hundred_crate: get_element_reference(
-                'stat-time-hundred-crate'
-            ),
+            craft_speed: get_element_reference('stat-craft-speed'),
             bmat_used: get_element_reference('stat-bmat-used'),
             emat_used: get_element_reference('stat-emat-used'),
             hemat_used: get_element_reference('stat-hemat-used'),
             rmat_used: get_element_reference('stat-rmat-used'),
             achievement_owned: get_element_reference('stat-owned-achievements'),
+            view_statcard_button: get_element_reference(
+                'show-statcard'
+            ) as HTMLButtonElement,
+        };
+        statcard_registry = {
+            image: get_element_reference('statcard-image') as HTMLImageElement,
+            name_input: get_element_reference(
+                'statcard-username'
+            ) as HTMLInputElement,
+            clantag_input: get_element_reference(
+                'statcard-clantag'
+            ) as HTMLInputElement,
+            avatar_input: get_element_reference(
+                'statcard-avatar'
+            ) as HTMLInputElement,
+            return_button: get_element_reference(
+                'statcard-return-button'
+            ) as HTMLButtonElement,
+            root_element: get_element_reference('statcard-view'),
         };
     }
 
@@ -365,5 +391,9 @@ export namespace DomRegistry {
 
     export function get_achivement_card(): HTMLTemplateElement {
         return achivement_template;
+    }
+
+    export function get_statcard_registry(): StatcardRegistry {
+        return statcard_registry;
     }
 }

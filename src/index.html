@@ -68,10 +68,11 @@
             </button>
             <button id="start-manu-button" class="hidden">Start Manu</button>
             <button id="stop-manu-button" class="hidden">Stop Manu</button>
-            <button id="return-button" class="hidden">Return</button>
+            <button id="result-return-button" class="hidden">Return</button>
+            <button id="statcard-return-button" class="hidden">Return</button>
         </header>
         <main>
-            <div id="stat-view" class="">
+            <div id="stat-view">
                 <div id="stat-import-export-overlay" class="hidden">
                     <div class="overlay-content">
                         <div id="stat-import-data">
@@ -105,6 +106,7 @@
                 </div>
                 <div class="stat-button-group group">
                     <button id="import-export-stat">Import/Export Data</button>
+                    <button id="show-statcard">View Statcard</button>
                     <button id="stat-reset-current-war">
                         Reset Current War Stat
                     </button>
@@ -120,10 +122,7 @@
                         <div class="item-description">spent manufacturing</div>
                     </div>
                     <div class="table-item">
-                        <div
-                            class="item-value"
-                            id="stat-time-hundred-crate"
-                        ></div>
+                        <div class="item-value" id="stat-craft-speed"></div>
                         <div class="item-description">
                             to manufacture 100 crates
                         </div>
@@ -158,10 +157,7 @@
                         <div class="item-description">spent manufacturing</div>
                     </div>
                     <div class="table-item">
-                        <div
-                            class="item-value"
-                            id="stat-war-time-hundred-crate"
-                        ></div>
+                        <div class="item-value" id="stat-war-craft-speed"></div>
                         <div class="item-description">
                             to manufacture 100 crates
                         </div>
@@ -187,6 +183,27 @@
                 </div>
                 <h2 class="stat-header">Achievements</h2>
                 <div id="stat-owned-achievements" class="table"></div>
+            </div>
+            <div id="statcard-view" class="hidden">
+                <div>
+                    Build your own statcard! No data ever leave your device.
+                    Paranoid? Just disconnect from internet, it will still work!
+                </div>
+                <div>
+                    If no image is shown, most likely your browser does not
+                    support Canvas API, which is required to render the card.
+                </div>
+                <img id="statcard-image" />
+                <div class="group">
+                    <label for="statcard-username">Username:</label>
+                    <input type="text" id="statcard-username" />
+                    <label for="statcard-clantag">Regiment Tag:</label>
+                    <input type="text" id="statcard-clantag" />
+                    <label id="statcard-pfp-label" for="statcard-avatar"
+                        >Choose Avatar</label
+                    >
+                    <input type="file" id="statcard-avatar" accept="image/*" />
+                </div>
             </div>
             <div id="config-view" class="hidden">
                 <div id="config-logihub-help" class="hidden">

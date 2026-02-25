@@ -15,7 +15,7 @@ import { StatScreen } from './stat-screen';
 
 let manu_registry: ManuRegistry;
 let manu_data: ManuData;
-let time_ref: number;
+let time_ref: NodeJS.Timeout;
 let start_time: number;
 let anim_timeouts: number[];
 

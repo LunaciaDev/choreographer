@@ -76,7 +76,7 @@ export function duration_to_string(duration: number): string {
         if (duration === 0) break;
     }
 
-    return result.reverse().slice(0, 3).join(' ');
+    return result.reverse().slice(0, 2).join(' ');
 }
 
 export function get_color_class(item_type: ItemType): string {
