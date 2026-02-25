@@ -400,8 +400,22 @@ function draw_stats_canvas() {
         section_height -= 20;
         context.textBaseline = 'top';
 
-        const item_crafted = Array.from(user_data.item_crafted);
-        item_crafted
+        const war_start_item_crafted = user_data.war_snapshot.item_crafted;
+        user_data.item_crafted
+            .map((value) => {
+                const matching_item = war_start_item_crafted.find(
+                    (item) => item.id === value.id
+                );
+                if (matching_item === undefined) {
+                    return value;
+                }
+
+                return {
+                    id: value.id,
+                    amount: value.amount - matching_item.amount,
+                };
+            })
+            .filter((item) => item.amount !== 0)
             .sort((a, b) => b.amount - a.amount)
             .slice(0, 5)
             .forEach((item, index, array) => {

@@ -15,6 +15,7 @@ import {
     type UserDataV1,
     type UserData,
     type AchievementEntry,
+    type ItemCraftedEntry,
 } from '../types/user-data';
 import { ConfigScreen } from './config-screen';
 import { DomRegistry, type StatRegistry } from './dom-registry';
@@ -65,7 +66,16 @@ function load_user_data(raw_user_data: string, version_data: number) {
                 achievements: [],
                 war_snapshot: {
                     crate_crafted: old_user_data.crate_crafted,
-                    material_consumed: old_user_data.material_consumed,
+                    // Make sure to duplicate the array, funny thing might happen
+                    item_crafted: Object.assign<
+                        ItemCraftedEntry[],
+                        ItemCraftedEntry[]
+                    >([], old_user_data.item_crafted),
+                    // Same here
+                    material_consumed: Object.assign(
+                        new Cost(),
+                        old_user_data.material_consumed
+                    ),
                     time_spent: Math.ceil(old_user_data.time_spent / 1000),
                 },
             };
@@ -206,6 +216,10 @@ export namespace StatScreen {
                 }
 
                 user_data.war_snapshot.crate_crafted = user_data.crate_crafted;
+                user_data.war_snapshot.item_crafted = Object.assign<
+                    ItemCraftedEntry[],
+                    ItemCraftedEntry[]
+                >([], user_data.item_crafted);
                 user_data.war_snapshot.material_consumed = Object.assign(
                     new Cost(),
                     user_data.material_consumed
@@ -258,17 +272,17 @@ export namespace StatScreen {
         const current_war_registry = stat_registry.stat_current_war;
         const war_snapshot = user_data.war_snapshot;
         const war_cost = Object.assign(new Cost(), user_data.material_consumed);
+        const war_crate = user_data.crate_crafted - war_snapshot.crate_crafted;
+        const war_time = user_data.time_spent - war_snapshot.time_spent;
         war_cost.subtract(war_snapshot.material_consumed);
 
-        current_war_registry.crate_count.innerText = number_formatter.format(
-            user_data.crate_crafted - war_snapshot.crate_crafted
-        );
-        current_war_registry.time_spent.innerText = duration_to_string(
-            user_data.time_spent - war_snapshot.time_spent
-        );
+        current_war_registry.crate_count.innerText =
+            number_formatter.format(war_crate);
+        current_war_registry.time_spent.innerText =
+            duration_to_string(war_time);
         current_war_registry.craft_speed.innerText = get_manu_speed(
-            user_data.crate_crafted - war_snapshot.crate_crafted,
-            user_data.time_spent - war_snapshot.time_spent
+            war_crate,
+            war_time
         ).toFixed(2);
         current_war_registry.bmat_used.innerText = number_formatter
             .format(war_cost.bmat)

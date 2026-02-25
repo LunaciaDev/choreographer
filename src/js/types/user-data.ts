@@ -11,6 +11,7 @@ export function make_empty_user_data(): UserData {
         achievements: [],
         war_snapshot: {
             crate_crafted: 0,
+            item_crafted: [],
             material_consumed: new Cost(),
             time_spent: 0,
         },
@@ -29,6 +30,7 @@ export type UserData = {
     time_spent: number;
     war_snapshot: {
         crate_crafted: number;
+        item_crafted: ItemCraftedEntry[];
         material_consumed: Cost;
         time_spent: number;
     };
