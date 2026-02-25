@@ -266,6 +266,7 @@ function draw_stats_canvas() {
     let height = canvas_stats.height;
 
     if (context !== null) {
+        context.save();
         context.fillStyle = background_color;
         context.fillRect(0, 0, canvas_stats.width, canvas_stats.height);
 
@@ -469,6 +470,8 @@ function draw_stats_canvas() {
                     context.fillRect(0, 0, 1, section_height - 20);
                 }
             });
+
+        context.restore();
     }
 }
 
