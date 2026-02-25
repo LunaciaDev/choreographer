@@ -5,12 +5,12 @@ export type ConfigManualInput = {
     item_fill_level: HTMLSelectElement;
     item_amount: HTMLInputElement;
     error_info: HTMLElement;
-    submit_button: HTMLButtonElement;
+    form_element: HTMLFormElement;
 };
 
 export type ConfigLogihubInput = {
+    form_element: HTMLFormElement;
     input: HTMLTextAreaElement;
-    submit_button: HTMLButtonElement;
     logihub_help: HTMLElement;
     error_info: HTMLElement;
     show_logihub_help: HTMLButtonElement;
@@ -166,9 +166,9 @@ export namespace DomRegistry {
                 input: get_element_reference(
                     'logihub-import-paste'
                 ) as HTMLTextAreaElement,
-                submit_button: get_element_reference(
-                    'submit-logihub-import'
-                ) as HTMLButtonElement,
+                form_element: get_element_reference(
+                    'config-logihub-input'
+                ) as HTMLFormElement,
                 logihub_help: get_element_reference('config-logihub-help'),
                 show_logihub_help: get_element_reference(
                     'config-show-logihub-help'
@@ -203,9 +203,9 @@ export namespace DomRegistry {
                 item_amount: get_element_reference(
                     'amount'
                 ) as HTMLInputElement,
-                submit_button: get_element_reference(
-                    'submit-item-button'
-                ) as HTMLButtonElement,
+                form_element: get_element_reference(
+                    'config-manual-input'
+                ) as HTMLFormElement,
                 error_info: get_element_reference('manual-import-error'),
             },
             data_view: {

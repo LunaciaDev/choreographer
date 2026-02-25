@@ -169,10 +169,17 @@ export namespace ConfigScreen {
         config_registry = DomRegistry.get_config_registry();
 
         manual_input_registry = config_registry.manual_input;
-        manual_input_registry.submit_button.addEventListener('click', () => {
-            error_manager.reset();
-            sanitize_input();
-        });
+        manual_input_registry.form_element.addEventListener(
+            'submit',
+            (event) => {
+                event.preventDefault();
+
+                error_manager.reset();
+                sanitize_input();
+
+                return false;
+            }
+        );
 
         // Populate item name input with possible options
         for (const item of item_data.values()) {

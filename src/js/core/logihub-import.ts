@@ -54,9 +54,13 @@ export namespace LogihubImporter {
         const logihub_registry =
             DomRegistry.get_config_registry().logihub_input;
         logihub_input = logihub_registry.input;
-        logihub_registry.submit_button.addEventListener('click', () => {
+        logihub_registry.form_element.addEventListener('submit', (event) => {
+            event.preventDefault();
+
             error_manager.reset();
             import_items();
+
+            return false;
         });
 
         logihub_registry.logihub_help.addEventListener('click', (event) => {

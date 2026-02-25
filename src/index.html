@@ -289,7 +289,7 @@
                 </div>
                 <div id="data-input">
                     <div class="table" id="data-input-table">
-                        <div class="table-item">
+                        <form id="config-logihub-input" class="table-item">
                             <div class="item-description">
                                 Import from Logihub/Shockbot
                             </div>
@@ -341,16 +341,16 @@
                             </div>
                             <div class="hidden" id="logihub-import-error"></div>
                             <div id="logihub-import-button-group">
+                                <button class="accent">Submit</button>
                                 <button
-                                    class="accent"
-                                    id="submit-logihub-import"
+                                    type="button"
+                                    id="config-show-logihub-help"
                                 >
-                                    Submit
+                                    ?
                                 </button>
-                                <button id="config-show-logihub-help">?</button>
                             </div>
-                        </div>
-                        <div class="table-item">
+                        </form>
+                        <form id="config-manual-input" class="table-item">
                             <div class="item-description">Manual Entry</div>
                             <div class="item-value" id="manual-input">
                                 <label for="item-name">Item name:</label>
@@ -395,11 +395,9 @@
                                     class="hidden"
                                     id="manual-import-error"
                                 ></div>
-                                <button class="accent" id="submit-item-button">
-                                    Submit
-                                </button>
+                                <button id="submit-item-button" class="accent">Submit</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <div id="data-view"></div>
