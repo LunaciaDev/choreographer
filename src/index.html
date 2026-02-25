@@ -373,9 +373,16 @@
                                     >Current Fill Level:</label
                                 >
                                 <select id="current-fill-level">
-                                    <option value="critical">Critical</option>
-                                    <option value="low">Low</option>
-                                    <option value="okayish">Okay-ish</option>
+                                    <option value="critical">
+                                        Critical (&lt;25% of max stock)
+                                    </option>
+                                    <option value="low">
+                                        Okay-ish (between 25% and 75% of max
+                                        stock)
+                                    </option>
+                                    <option value="okayish">
+                                        Good (&gt;75% of max stock)
+                                    </option>
                                 </select>
                                 <label for="amount">Amount:</label>
                                 <input

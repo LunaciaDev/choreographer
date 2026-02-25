@@ -19,11 +19,11 @@ export namespace FillLevel {
     export function to_string(fill_level: FillLevel): string {
         switch (fill_level) {
             case FillLevel.CRITICAL:
-                return 'Critical';
+                return 'Critical (Targeting 25% of max stock)';
             case FillLevel.LOW:
-                return 'Low';
+                return 'Okay-ish (Targeting 75% of max stock)';
             case FillLevel.OK:
-                return 'Okay-ish';
+                return 'Good (Targeting max stock)';
             default:
                 throw new Error('Invalid FillLevel was passed in');
         }
