@@ -78,6 +78,7 @@ export type ResultRegistry = {
     emat_used: HTMLElement;
     rmat_used: HTMLElement;
     hemat_used: HTMLElement;
+    manu_speed: HTMLElement;
     carrier_equivalent: HTMLElement;
     return_button: HTMLButtonElement;
     item_card_template: HTMLTemplateElement;
@@ -280,6 +281,7 @@ export namespace DomRegistry {
             time_spent: get_element_reference('result-time'),
             crate_crafted: get_element_reference('result-crate'),
             item_crafted: get_element_reference('result-item-crafted'),
+            manu_speed: get_element_reference('result-speed'),
             return_button: get_element_reference(
                 'result-return-button'
             ) as HTMLButtonElement,

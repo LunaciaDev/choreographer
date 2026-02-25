@@ -1,7 +1,11 @@
 import { DomRegistry, type StatcardRegistry } from './dom-registry';
 import type { UserData } from '../types/user-data';
 import { StatScreen } from './stat-screen';
-import { duration_to_string, number_formatter } from '../helper';
+import {
+    duration_to_string,
+    get_manu_speed,
+    number_formatter,
+} from '../helper';
 import { item_data } from '../data/item-data';
 import { Cost } from '../types/item-cost';
 import { ItemType } from '../types/item-type';
@@ -206,9 +210,10 @@ function draw_nameplate_canvas() {
         context.textAlign = 'right';
         [
             [
-                (user_data.crate_crafted / (user_data.time_spent / 60)).toFixed(
-                    2
-                ),
+                get_manu_speed(
+                    user_data.crate_crafted,
+                    user_data.time_spent
+                ).toFixed(2),
                 'avg. crates/minute',
                 '#f5e0dc',
             ],
@@ -304,7 +309,7 @@ function draw_stats_canvas() {
             [number_formatter.format(war_crate), 'crates', '#eba0ac'],
             [duration_to_string(war_time), 'spent', '#89dceb'],
             [
-                (war_crate / (war_time / 60)).toFixed(2),
+                get_manu_speed(war_crate, war_time).toFixed(2),
                 'avg. crates/minute',
                 '#f5e0dc',
             ],

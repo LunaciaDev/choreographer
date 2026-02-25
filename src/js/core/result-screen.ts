@@ -1,8 +1,10 @@
 import { achievement_data } from '../data/achievement-data';
 import { item_data } from '../data/item-data';
 import {
+    duration_to_string,
     get_color_class,
     get_image_path,
+    get_manu_speed,
     get_template_elements,
     number_formatter,
 } from '../helper';
@@ -36,9 +38,9 @@ export namespace ResultScreen {
      * @param queued_item The to-manu list
      * @param time Time spent manuing
      */
-    export function show(manu_data: ManuData, time: string) {
+    export function show(manu_data: ManuData, time: number) {
         result_registry.item_crafted.innerHTML = '';
-        result_registry.time_spent.innerText = time;
+        result_registry.time_spent.innerText = duration_to_string(time);
         result_registry.root_element.className = '';
         result_registry.return_button.className = 'accent';
         DomRegistry.get_title().innerText = 'Result';
@@ -62,6 +64,10 @@ export namespace ResultScreen {
         });
 
         result_registry.crate_crafted.innerText = amount_crafted.toString();
+        result_registry.manu_speed.innerText = get_manu_speed(
+            amount_crafted,
+            time / 60
+        ).toFixed(2);
         result_registry.bmat_used.innerText = number_formatter.format(
             total_cost.bmat
         );

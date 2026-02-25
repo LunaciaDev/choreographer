@@ -244,14 +244,13 @@ export namespace ManuScreen {
         );
 
         manu_registry.stop_manu_button.addEventListener('click', () => {
+            const total_time = Math.ceil(Date.now() / 1000) - start_time;
+
             manu_data.clear_staged_items();
-            StatScreen.update_manu_stat(start_time, manu_data);
+            StatScreen.update_manu_stat(total_time, manu_data);
             // [TODO]: Update achievement data;
             ConfigScreen.update(manu_data);
-            ResultScreen.show(
-                manu_data,
-                manu_registry.stat_label.time_spent.innerText
-            );
+            ResultScreen.show(manu_data, total_time);
             clearInterval(time_ref);
             manu_registry.stop_manu_button.className = 'hidden';
             manu_registry.root_element.className = 'hidden';

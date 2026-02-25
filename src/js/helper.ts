@@ -79,6 +79,14 @@ export function duration_to_string(duration: number): string {
     return result.reverse().slice(0, 2).join(' ');
 }
 
+export function get_manu_speed(crate_count: number, duration: number): number {
+    if (duration === 0) {
+        return 0;
+    }
+
+    return crate_count / (duration / 60);
+}
+
 export function get_color_class(item_type: ItemType): string {
     switch (item_type) {
         case ItemType.LIGHT_ARM:

@@ -2,6 +2,7 @@ import { achievement_data } from '../data/achievement-data';
 import { item_data } from '../data/item-data';
 import {
     duration_to_string,
+    get_manu_speed,
     get_template_elements,
     number_formatter,
 } from '../helper';
@@ -235,12 +236,10 @@ export namespace StatScreen {
         stat_registry.time_spent.innerText = duration_to_string(
             user_data.time_spent
         );
-        stat_registry.craft_speed.innerText = (
-            user_data.crate_crafted /
-            (user_data.time_spent / 60)
-        )
-            .toFixed(2)
-            .toString();
+        stat_registry.craft_speed.innerText = get_manu_speed(
+            user_data.crate_crafted,
+            user_data.time_spent
+        ).toFixed(2);
         stat_registry.bmat_used.innerText = number_formatter
             .format(user_data.material_consumed.bmat)
             .toLowerCase();
@@ -267,12 +266,10 @@ export namespace StatScreen {
         current_war_registry.time_spent.innerText = duration_to_string(
             user_data.time_spent - war_snapshot.time_spent
         );
-        current_war_registry.craft_speed.innerText = (
-            (user_data.crate_crafted - war_snapshot.crate_crafted) /
-            ((user_data.time_spent - war_snapshot.time_spent) / 60)
-        )
-            .toFixed(2)
-            .toString();
+        current_war_registry.craft_speed.innerText = get_manu_speed(
+            user_data.crate_crafted - war_snapshot.crate_crafted,
+            user_data.time_spent - war_snapshot.time_spent
+        ).toFixed(2);
         current_war_registry.bmat_used.innerText = number_formatter
             .format(war_cost.bmat)
             .toLowerCase();
@@ -315,19 +312,17 @@ export namespace StatScreen {
     /**
      * Update manufacture part of user data
      *
-     * @param start_time The manufacturing start time for updating time spent
+     * @param total_time The manufacturing time spent
      * @param crafted_items Which item has been manufactured
      */
     export function update_manu_stat(
-        start_time: number,
+        total_time: number,
         manu_data: ManuData
     ): void {
         unlocked_achivements = [];
 
         // Do not write any data if no crate was crafted
         if (manu_data.crate_crafted === 0) return;
-
-        const end_time = Math.ceil(Date.now() / 1000);
 
         const session_data: UserDataV1 = {
             crate_crafted: 0,
@@ -370,8 +365,8 @@ export namespace StatScreen {
             });
         });
 
-        user_data.time_spent += end_time - start_time;
-        session_data.time_spent = end_time - start_time;
+        user_data.time_spent += total_time;
+        session_data.time_spent = total_time;
 
         // Unlock eligible achivements
         achievement_data.forEach((achievement, id) => {
