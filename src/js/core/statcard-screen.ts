@@ -26,6 +26,7 @@ let canvas_composite: HTMLCanvasElement;
 let user_avatar: HTMLImageElement | null = null;
 let user_name: string = 'Unknown Manufacturer';
 let user_clantag: string = 'FMAT';
+let war_number: string = '0';
 
 // Color Configuration
 const text_color = '#cdd6f4';
@@ -276,7 +277,8 @@ function draw_stats_canvas() {
 
         context.font = '25px monospace';
         context.textBaseline = 'middle';
-        const header_size = measure_text('War 132 Stats', context);
+        const header_text = 'War ' + war_number + ' Stats';
+        const header_size = measure_text(header_text, context);
         const accent_length = (width - header_size.width - 40) / 2;
 
         context.fillStyle = accent_color;
@@ -289,7 +291,7 @@ function draw_stats_canvas() {
         );
         context.fillStyle = text_accent;
         context.fillText(
-            'War 132 Stats',
+            header_text,
             accent_length + 20,
             header_size.height / 2
         );
@@ -523,6 +525,19 @@ export namespace StatcardScreen {
                 statcard_registry.image.src =
                     canvas_composite.toDataURL('image/png');
             }
+        });
+
+        statcard_registry.warnumber_input.addEventListener('change', () => {
+            if (isNaN(parseInt(statcard_registry.warnumber_input.value))) {
+                return;
+            }
+
+            war_number = statcard_registry.warnumber_input.value;
+
+            draw_stats_canvas();
+            draw_composite_canvas();
+            statcard_registry.image.src =
+                canvas_composite.toDataURL('image/png');
         });
 
         statcard_registry.return_button.addEventListener('click', () => {

@@ -129,6 +129,7 @@ export type StatcardRegistry = {
     image: HTMLImageElement;
     name_input: HTMLInputElement;
     clantag_input: HTMLInputElement;
+    warnumber_input: HTMLInputElement;
     avatar_input: HTMLInputElement;
     return_button: HTMLButtonElement;
 };
@@ -363,6 +364,9 @@ export namespace DomRegistry {
             ) as HTMLInputElement,
             avatar_input: get_element_reference(
                 'statcard-avatar'
+            ) as HTMLInputElement,
+            warnumber_input: get_element_reference(
+                'statcard-warnumber'
             ) as HTMLInputElement,
             return_button: get_element_reference(
                 'statcard-return-button'
