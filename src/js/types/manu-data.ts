@@ -4,6 +4,7 @@ import { FillLevel } from './fill-level';
 import type { Item } from './item';
 import { Cost } from './item-cost';
 import { ItemType } from './item-type';
+import type { ItemCraftedEntry } from './user-data';
 
 export class ManuData {
     data: Item[][] = [];
@@ -160,5 +161,28 @@ export class ManuData {
 
     is_queue_empty(item_type: ItemType): boolean {
         return this.manu_index[item_type] >= this.data[item_type].length;
+    }
+
+    get_crafted_items(): ItemCraftedEntry[] {
+        let result: ItemCraftedEntry[] = [];
+
+        this.data.forEach((row) => {
+            row.filter((item) => item.crafted_amount !== 0).forEach((item) => {
+                let index = result.findIndex(
+                    (search_item) => search_item.id === item.id
+                );
+
+                if (index === -1) {
+                    result.push({
+                        id: item.id,
+                        amount: item.crafted_amount,
+                    });
+                } else {
+                    result[index].amount += item.crafted_amount;
+                }
+            });
+        });
+
+        return result;
     }
 }

@@ -347,36 +347,30 @@ export namespace StatScreen {
 
         user_data.crate_crafted += manu_data.crate_crafted;
         session_data.crate_crafted = manu_data.crate_crafted;
+        session_data.item_crafted = manu_data.get_crafted_items();
 
-        manu_data.data.forEach((row) => {
-            row.filter((item) => item.crafted_amount !== 0).forEach((item) => {
-                user_data.material_consumed.add_multiple(
-                    item.crafted_amount,
-                    item_data[item.id].cost
-                );
-                session_data.material_consumed.add_multiple(
-                    item.crafted_amount,
-                    item_data[item.id].cost
-                );
+        session_data.item_crafted.forEach((item) => {
+            user_data.material_consumed.add_multiple(
+                item.amount,
+                item_data[item.id].cost
+            );
+            session_data.material_consumed.add_multiple(
+                item.amount,
+                item_data[item.id].cost
+            );
 
-                session_data.item_crafted.push({
+            const entry_index = user_data.item_crafted.findIndex(
+                (crafted_item) => crafted_item.id == item.id
+            );
+
+            if (entry_index == -1) {
+                user_data.item_crafted.push({
                     id: item.id,
-                    amount: item.crafted_amount,
+                    amount: item.amount,
                 });
-                const entry_index = user_data.item_crafted.findIndex(
-                    (crafted_item) => crafted_item.id == item.id
-                );
-
-                if (entry_index == -1) {
-                    user_data.item_crafted.push({
-                        id: item.id,
-                        amount: item.crafted_amount,
-                    });
-                } else {
-                    user_data.item_crafted[entry_index].amount +=
-                        item.crafted_amount;
-                }
-            });
+            } else {
+                user_data.item_crafted[entry_index].amount += item.amount;
+            }
         });
 
         user_data.time_spent += total_time;

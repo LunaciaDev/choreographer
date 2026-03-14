@@ -49,18 +49,10 @@ export namespace ResultScreen {
         const total_cost = new Cost();
         const shockbot_output: ItemCraftedEntry[] = [];
 
-        manu_data.data.forEach((row) => {
-            row.filter((item) => item.crafted_amount !== 0).forEach((item) => {
-                total_cost.add_multiple(
-                    item.crafted_amount,
-                    item_data[item.id].cost
-                );
-                add_line(item.id, item.crafted_amount);
-                shockbot_output.push({
-                    id: item_data[item.id].shockbot_id,
-                    amount: item.crafted_amount,
-                });
-            });
+        manu_data.get_crafted_items().forEach((item) => {
+            total_cost.add_multiple(item.amount, item_data[item.id].cost);
+            add_line(item.id, item.amount);
+            shockbot_output.push(item);
         });
 
         result_registry.crate_crafted.innerText = amount_crafted.toString();
