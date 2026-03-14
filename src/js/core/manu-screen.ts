@@ -203,6 +203,59 @@ function show_popup(popup_element: HTMLElement, item_type: ItemType) {
     }
 }
 
+function handle_hotkey(event: KeyboardEvent) {
+    switch (event.key) {
+        case '1': {
+            if (!manu_data.is_queue_empty(ItemType.LIGHT_ARM)) {
+                add_queue(ItemType.LIGHT_ARM);
+                show_popup(manu_registry.popup.light_arm, ItemType.LIGHT_ARM);
+            }
+            break;
+        }
+        case '2': {
+            if (!manu_data.is_queue_empty(ItemType.HEAVY_ARM)) {
+                add_queue(ItemType.HEAVY_ARM);
+                show_popup(manu_registry.popup.heavy_arm, ItemType.HEAVY_ARM);
+            }
+            break;
+        }
+        case '3': {
+            if (!manu_data.is_queue_empty(ItemType.HEAVY_SHELL)) {
+                add_queue(ItemType.HEAVY_SHELL);
+                show_popup(manu_registry.popup.heavy_shell, ItemType.HEAVY_SHELL);
+            }
+            break;
+        }
+        case '4': {
+            if (!manu_data.is_queue_empty(ItemType.UTILITIES)) {
+                add_queue(ItemType.UTILITIES);
+                show_popup(manu_registry.popup.utilities, ItemType.UTILITIES);
+            }
+            break;
+        }
+        case '5': {
+            if (!manu_data.is_queue_empty(ItemType.MEDICAL)) {
+                add_queue(ItemType.MEDICAL);
+                show_popup(manu_registry.popup.medical, ItemType.MEDICAL);
+            }
+            break;
+        }
+        case '6': {
+            if (!manu_data.is_queue_empty(ItemType.UNIFORM)) {
+                add_queue(ItemType.UNIFORM);
+                show_popup(manu_registry.popup.uniform, ItemType.UNIFORM);
+            }
+            break;
+        }
+        case 'e': {
+            if (manu_registry.stat_label.item_to_craft.innerHTML !== '') {
+                submit_items();
+            }
+            break;
+        }
+    }
+}
+
 export namespace ManuScreen {
     /**
      * Initialize the component.
@@ -254,6 +307,7 @@ export namespace ManuScreen {
             clearInterval(time_ref);
             manu_registry.stop_manu_button.className = 'hidden';
             manu_registry.root_element.className = 'hidden';
+            document.removeEventListener('keyup', handle_hotkey);
         });
     }
 
@@ -276,6 +330,7 @@ export namespace ManuScreen {
         }, 1000);
 
         manu_registry.stat_label.time_spent.innerText = '0s';
+        document.addEventListener('keyup', handle_hotkey);
 
         refresh_item_cards();
         refresh_buttons();
