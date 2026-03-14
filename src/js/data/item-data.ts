@@ -33,7 +33,7 @@ export type ItemData = {
 export const item_data: ItemData[] = [
     {
         name: 'Neville AT Rifle',
-        alt_names: ['20 Neville Anti-Tank Rifle'],
+        alt_names: ['Neville Anti-Tank Rifle', '20 Neville Anti-Tank Rifle'],
         shockbot_id: 39,
         type: ItemType.HEAVY_ARM,
         cost: {
