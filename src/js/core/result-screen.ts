@@ -58,7 +58,7 @@ export namespace ResultScreen {
         result_registry.crate_crafted.innerText = amount_crafted.toString();
         result_registry.manu_speed.innerText = get_manu_speed(
             amount_crafted,
-            time / 60
+            time
         ).toFixed(2);
         result_registry.bmat_used.innerText = number_formatter.format(
             total_cost.bmat
