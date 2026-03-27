@@ -19,7 +19,6 @@ import {
 } from '../types/user-data';
 import { ConfigScreen } from './config-screen';
 import { DomRegistry, type StatRegistry } from './dom-registry';
-import { StatcardScreen } from './statcard-screen';
 
 let stat_registry: StatRegistry;
 
@@ -196,12 +195,6 @@ export namespace StatScreen {
                 version: CURRENT_VERSION,
                 data: JSON.stringify(make_empty_user_data()),
             });
-        });
-
-        stat_registry.view_statcard_button.addEventListener('click', () => {
-            stat_registry.start_config_button.className = 'hidden';
-            stat_registry.root_element.className = 'hidden';
-            StatcardScreen.show();
         });
 
         stat_registry.stat_current_war.reset_current_war.addEventListener(
