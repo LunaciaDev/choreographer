@@ -111,6 +111,7 @@ export type StatCurrentWar = {
     emat_used: HTMLElement;
     hemat_used: HTMLElement;
     rmat_used: HTMLElement;
+    chart_item_made: HTMLCanvasElement;
 };
 
 export type StatIO = {
@@ -325,6 +326,7 @@ export namespace DomRegistry {
                 emat_used: get_element_reference('stat-war-emat-used'),
                 hemat_used: get_element_reference('stat-war-hemat-used'),
                 rmat_used: get_element_reference('stat-war-rmat-used'),
+                chart_item_made: get_element_reference('stat-war-item-crafted') as HTMLCanvasElement,
             },
             start_config_button: get_element_reference(
                 'start-config-button'
