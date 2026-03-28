@@ -416,7 +416,17 @@ export namespace StatScreen {
 
         // Make the charts!
         // Firstly, find out what the user has crafted this war since we are tracking by delta.
-        let war_item_crafted: ItemCraftedEntry[] = [];
+        type ChartData = {
+            name: string;
+            type: ItemType;
+            amount: number;
+        };
+        let war_item_crafted: ChartData[] = [];
+        let other_items: ChartData[] = ItemType.get_iterator().map(
+            (_, type: ItemType) => {
+                return { name: 'Others', type: type, amount: 0 };
+            }
+        );
         user_data.item_crafted.forEach((item) => {
             let snapshot = user_data.war_snapshot.item_crafted.find(
                 (v) => v.id == item.id
@@ -427,31 +437,53 @@ export namespace StatScreen {
             }
 
             if (item.amount - snapshot.amount > 0) {
+                if ((item.amount - snapshot.amount) / war_crate < 0.017) {
+                    other_items[item_data[item.id].type].amount +=
+                        item.amount - snapshot.amount;
+                    return;
+                }
+
                 war_item_crafted.push({
-                    id: item.id,
+                    name: item_data[item.id].name,
+                    type: item_data[item.id].type,
                     amount: item.amount - snapshot.amount,
                 });
             }
         });
+        other_items.forEach((v) => {
+            if (v.amount > 0) {
+                war_item_crafted.push(v);
+            }
+        });
+        // Sort
         war_item_crafted
-            .sort((a, b) => -a.amount + b.amount)
-            .sort((a, b) => item_data[a.id].type - item_data[b.id].type);
+            .sort((a, b) => {
+                if (a.name === 'Others') {
+                    return 1;
+                }
+                if (b.name === 'Others') {
+                    return -1;
+                }
+
+                return -a.amount + b.amount;
+            })
+            .sort((a, b) => a.type - b.type);
 
         // Then we map out the item types.
         const count_by_type = ItemType.get_iterator().map(() => 0);
         war_item_crafted.forEach((item) => {
-            count_by_type[item_data[item.id].type] += item.amount;
+            count_by_type[item.type] += item.amount;
         });
 
         // And update the data.
         item_crafted_chart.data.datasets[0].data = war_item_crafted.map(
             (v) => v.amount
         );
-        item_crafted_chart.data.datasets[0].custom_labels =
-            war_item_crafted.map((v) => item_data[v.id].name);
+        (item_crafted_chart.data.datasets[0] as any).custom_labels =
+            war_item_crafted.map((v) => v.name);
         item_crafted_chart.data.datasets[0].backgroundColor =
             war_item_crafted.map((v) => {
-                switch (item_data[v.id].type) {
+                switch (v.type) {
                     case ItemType.LIGHT_ARM:
                         return '#f9e2af';
                     case ItemType.HEAVY_ARM:
