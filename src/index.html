@@ -143,41 +143,80 @@
                     </div>
                 </div>
                 <h2 class="stat-header">Current War Statistics</h2>
-                <div class="table stat-basic">
-                    <div class="table-item">
-                        <div class="item-value" id="stat-war-crate-count"></div>
-                        <div class="item-description">crates manufactured</div>
+                <div class="stat-war-group">
+                    <div class="stat-war-col charts-row">
+                        <div id="chart-item-crafted">
+                            <canvas id="stat-war-item-crafted"></canvas>
+                        </div>
                     </div>
-                    <div class="table-item">
-                        <div class="item-value" id="stat-war-time-spent"></div>
-                        <div class="item-description">spent manufacturing</div>
-                    </div>
-                    <div class="table-item">
-                        <div class="item-value" id="stat-war-craft-speed"></div>
-                        <div class="item-description">avg. crates / minute</div>
-                    </div>
-                </div>
-                <div class="table stat-material">
-                    <div class="table-item">
-                        <div class="item-value" id="stat-war-bmat-used"></div>
-                        <div class="item-description">bmat consumed</div>
-                    </div>
-                    <div class="table-item">
-                        <div class="item-value" id="stat-war-emat-used"></div>
-                        <div class="item-description">emat consumed</div>
-                    </div>
-                    <div class="table-item">
-                        <div class="item-value" id="stat-war-hemat-used"></div>
-                        <div class="item-description">hemat consumed</div>
-                    </div>
-                    <div class="table-item">
-                        <div class="item-value" id="stat-war-rmat-used"></div>
-                        <div class="item-description">rmat consumed</div>
-                    </div>
-                </div>
-                <div class="charts-row">
-                    <div id="chart-item-crafted">
-                        <canvas id="stat-war-item-crafted"></canvas>
+                    <div class="stat-war-col">
+                        <div class="table">
+                            <div class="table-item">
+                                <div
+                                    class="item-value"
+                                    id="stat-war-crate-count"
+                                ></div>
+                                <div class="item-description">
+                                    crates manufactured
+                                </div>
+                            </div>
+                            <div class="table-item">
+                                <div
+                                    class="item-value"
+                                    id="stat-war-time-spent"
+                                ></div>
+                                <div class="item-description">
+                                    spent manufacturing
+                                </div>
+                            </div>
+                            <div class="table-item">
+                                <div
+                                    class="item-value"
+                                    id="stat-war-craft-speed"
+                                ></div>
+                                <div class="item-description">
+                                    avg. crates / minute
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table">
+                            <div class="table-item">
+                                <div
+                                    class="item-value"
+                                    id="stat-war-bmat-used"
+                                ></div>
+                                <div class="item-description">
+                                    bmat consumed
+                                </div>
+                            </div>
+                            <div class="table-item">
+                                <div
+                                    class="item-value"
+                                    id="stat-war-emat-used"
+                                ></div>
+                                <div class="item-description">
+                                    emat consumed
+                                </div>
+                            </div>
+                            <div class="table-item">
+                                <div
+                                    class="item-value"
+                                    id="stat-war-hemat-used"
+                                ></div>
+                                <div class="item-description">
+                                    hemat consumed
+                                </div>
+                            </div>
+                            <div class="table-item">
+                                <div
+                                    class="item-value"
+                                    id="stat-war-rmat-used"
+                                ></div>
+                                <div class="item-description">
+                                    rmat consumed
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <h2 class="stat-header">Achievements</h2>

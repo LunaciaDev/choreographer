@@ -199,18 +199,6 @@ input[type=number]::-webkit-outer-spin-button
 .item-description, .item-fluff
     text-align: center
 
-.stat-basic, .stat-button-group
-    width: 60vw
-
-    .table-item
-        min-width: 240px
-
-.stat-material
-    width: 60vw
-
-    .table-item
-        min-width: 175px
-
 #manu-info-table
     width: 100%
 
@@ -446,13 +434,48 @@ select
     text-align: center
     margin-bottom: 1.5rem
 
-.charts-row
-    width: 75vw
+.stat-war-group
+    width: 60vw
     margin: 0 auto 1rem auto
+    display: flex
+    flex-direction: row
+    gap: 1rem
+
+.stat-war-col
+    display: flex
+    flex-direction: column
+    flex-wrap: true
+    margin: auto 0
+    gap: 1rem
+
+    .table
+        margin: 0
+
+    .table-item
+        min-width: 175px
+        max-height: fit-content
+
+.charts-row
+    margin: 0 auto
 
 #chart-item-crafted
     width: 32vw
     height: 32vw
+
+    min-width: 600px
+    min-height: 600px
+
+.stat-basic, .stat-button-group
+    width: 60vw
+
+    .table-item
+        min-width: 240px
+
+.stat-material
+    width: 60vw
+
+    .table-item
+        min-width: 175px
 
 /** Item Card
 
@@ -571,6 +594,10 @@ select
 
 /** At rules
 
+@media (max-width: 1300px)
+    .stat-war-group
+        flex-direction: column
+
 @media (max-width: 1000px)
     #manu-view
         width: 75vw
@@ -578,10 +605,6 @@ select
     #result-view
         .table, textarea, label
             width: 75vw
-
-    #statcard-view
-        img
-            width: 90vw
 
     #stat-import-export-overlay
         .overlay-content
@@ -597,12 +620,8 @@ select
             padding: 1.5rem 1.5rem
 
 @media (max-width: 700px)
-    #stat-material
+    #stat-material, .stat-war-group
         width: 95vw
-
-    #statcard-view
-        img
-            width: 100vw
 
     #stat-basic, .stat-button-group
         width: 95vw
@@ -624,6 +643,11 @@ select
 
     #manu-view
         width: 95vw
+
+@media (max-width: 600px)
+    #chart-item-crafted
+        min-width: 95vw
+        min-height: 95vw
 
 @media (max-width: 450px)
     #app-name
