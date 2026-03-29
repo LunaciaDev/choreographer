@@ -7,6 +7,7 @@ import {
     number_formatter,
 } from '../helper';
 import { Cost } from '../types/item-cost';
+import { ItemType } from '../types/item-type';
 import type { ManuData } from '../types/manu-data';
 import {
     CURRENT_VERSION,
@@ -19,13 +20,15 @@ import {
 } from '../types/user-data';
 import { ConfigScreen } from './config-screen';
 import { DomRegistry, type StatRegistry } from './dom-registry';
-import { StatcardScreen } from './statcard-screen';
+import Chart from 'chart.js/auto';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 let stat_registry: StatRegistry;
 
 let enable_local_storage: boolean;
 let user_data: UserData;
 let unlocked_achivements: AchievementEntry[] = [];
+let item_crafted_chart: Chart;
 
 const VERSION_KEY = 'saveversion';
 const DATA_KEY = 'userdata';
@@ -198,12 +201,6 @@ export namespace StatScreen {
             });
         });
 
-        stat_registry.view_statcard_button.addEventListener('click', () => {
-            stat_registry.start_config_button.className = 'hidden';
-            stat_registry.root_element.className = 'hidden';
-            StatcardScreen.show();
-        });
-
         stat_registry.stat_current_war.reset_current_war.addEventListener(
             'click',
             () => {
@@ -234,6 +231,103 @@ export namespace StatScreen {
                 }
 
                 StatScreen.show();
+            }
+        );
+
+        // initialize charts
+        Chart.register(ChartDataLabels);
+        item_crafted_chart = new Chart(
+            stat_registry.stat_current_war.chart_item_made,
+            {
+                type: 'doughnut',
+                data: {
+                    datasets: [
+                        {
+                            data: [],
+                            custom_labels: [],
+                            backgroundColor: [],
+                            weight: 2,
+                            borderWidth: 3,
+                            borderRadius: 6,
+                        } as any, // removing the error lint
+                        {
+                            data: [],
+                            custom_labels: ItemType.get_iterator().map((v) =>
+                                ItemType.to_string(v)
+                            ),
+                            backgroundColor: [
+                                '#f9d27c',
+                                '#f99454',
+                                '#f25984',
+                                '#7de273',
+                                '#5795f9',
+                                '#af74f7',
+                            ],
+                            weight: 1,
+                            borderWidth: 3,
+                            borderRadius: 6,
+                        },
+                    ],
+                },
+                options: {
+                    cutout: '10%',
+                    animation: false,
+                    borderColor: '#1e1e2e',
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const dataset = context.dataset as any;
+                                    const index = context.dataIndex;
+                                    const label = dataset.custom_labels[index];
+                                    const value = dataset.data[index];
+                                    return `${label}: ${value}`;
+                                },
+                            },
+                        },
+                        datalabels: {
+                            color: '#000',
+                            font: {
+                                size: 13,
+                            },
+                            rotation: function (context: any) {
+                                const arc = context.chart.getDatasetMeta(
+                                    context.datasetIndex
+                                ).data[context.dataIndex];
+                                const center_angle =
+                                    (arc.startAngle + arc.endAngle) / 2;
+                                let angle_deg = (center_angle * 180) / Math.PI;
+
+                                if (angle_deg > 90 && angle_deg < 270) {
+                                    angle_deg -= 180;
+                                }
+
+                                return angle_deg;
+                            },
+                            formatter: function (value, context) {
+                                const dataset = context.dataset as any;
+
+                                if (value === 0) return '';
+
+                                return dataset.custom_labels[context.dataIndex];
+                            },
+                            anchor: 'center',
+                            align: 'center',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Item Composition',
+                            color: '#cdd6f4',
+                            font: {
+                                size: 18,
+                                weight: 'bold',
+                            },
+                        },
+                    },
+                },
             }
         );
     }
@@ -320,6 +414,93 @@ export namespace StatScreen {
             );
         });
 
+        // Make the charts!
+        // Firstly, find out what the user has crafted this war since we are tracking by delta.
+        type ChartData = {
+            name: string;
+            type: ItemType;
+            amount: number;
+        };
+        let war_item_crafted: ChartData[] = [];
+        let other_items: ChartData[] = ItemType.get_iterator().map(
+            (_, type: ItemType) => {
+                return { name: 'Others', type: type, amount: 0 };
+            }
+        );
+        user_data.item_crafted.forEach((item) => {
+            let snapshot = user_data.war_snapshot.item_crafted.find(
+                (v) => v.id == item.id
+            );
+
+            if (snapshot === undefined) {
+                snapshot = { id: -1, amount: 0 };
+            }
+
+            if (item.amount - snapshot.amount > 0) {
+                if ((item.amount - snapshot.amount) / war_crate < 0.017) {
+                    other_items[item_data[item.id].type].amount +=
+                        item.amount - snapshot.amount;
+                    return;
+                }
+
+                war_item_crafted.push({
+                    name: item_data[item.id].name,
+                    type: item_data[item.id].type,
+                    amount: item.amount - snapshot.amount,
+                });
+            }
+        });
+        other_items.forEach((v) => {
+            if (v.amount > 0) {
+                war_item_crafted.push(v);
+            }
+        });
+        // Sort
+        war_item_crafted
+            .sort((a, b) => {
+                if (a.name === 'Others') {
+                    return 1;
+                }
+                if (b.name === 'Others') {
+                    return -1;
+                }
+
+                return -a.amount + b.amount;
+            })
+            .sort((a, b) => a.type - b.type);
+
+        // Then we map out the item types.
+        const count_by_type = ItemType.get_iterator().map(() => 0);
+        war_item_crafted.forEach((item) => {
+            count_by_type[item.type] += item.amount;
+        });
+
+        // And update the data.
+        item_crafted_chart.data.datasets[0].data = war_item_crafted.map(
+            (v) => v.amount
+        );
+        (item_crafted_chart.data.datasets[0] as any).custom_labels =
+            war_item_crafted.map((v) => v.name);
+        item_crafted_chart.data.datasets[0].backgroundColor =
+            war_item_crafted.map((v) => {
+                switch (v.type) {
+                    case ItemType.LIGHT_ARM:
+                        return '#f9e2af';
+                    case ItemType.HEAVY_ARM:
+                        return '#fab387';
+                    case ItemType.HEAVY_SHELL:
+                        return '#f38ba8';
+                    case ItemType.MEDICAL:
+                        return '#a6e3a1';
+                    case ItemType.UTILITIES:
+                        return '#89b4fa';
+                    case ItemType.UNIFORM:
+                        return '#cba6f7';
+                }
+            });
+        item_crafted_chart.data.datasets[1].data = count_by_type;
+
+        item_crafted_chart.update('none');
         stat_registry.root_element.className = '';
     }
 

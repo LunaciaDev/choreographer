@@ -100,7 +100,6 @@ export type StatRegistry = {
     hemat_used: HTMLElement;
     rmat_used: HTMLElement;
     achievement_owned: HTMLElement;
-    view_statcard_button: HTMLButtonElement;
 };
 
 export type StatCurrentWar = {
@@ -112,6 +111,7 @@ export type StatCurrentWar = {
     emat_used: HTMLElement;
     hemat_used: HTMLElement;
     rmat_used: HTMLElement;
+    chart_item_made: HTMLCanvasElement;
 };
 
 export type StatIO = {
@@ -122,16 +122,6 @@ export type StatIO = {
     data_output: HTMLTextAreaElement;
     reset_data_output: HTMLTextAreaElement;
     overlay_element: HTMLElement;
-};
-
-export type StatcardRegistry = {
-    root_element: HTMLElement;
-    image: HTMLImageElement;
-    name_input: HTMLInputElement;
-    clantag_input: HTMLInputElement;
-    warnumber_input: HTMLInputElement;
-    avatar_input: HTMLInputElement;
-    return_button: HTMLButtonElement;
 };
 
 function get_element_reference(id: string): HTMLElement {
@@ -148,7 +138,6 @@ let config_registry: ConfigRegistry;
 let manu_registry: ManuRegistry;
 let result_registry: ResultRegistry;
 let stat_registry: StatRegistry;
-let statcard_registry: StatcardRegistry;
 let title: HTMLElement;
 let achivement_template: HTMLTemplateElement;
 
@@ -337,6 +326,7 @@ export namespace DomRegistry {
                 emat_used: get_element_reference('stat-war-emat-used'),
                 hemat_used: get_element_reference('stat-war-hemat-used'),
                 rmat_used: get_element_reference('stat-war-rmat-used'),
+                chart_item_made: get_element_reference('stat-war-item-crafted') as HTMLCanvasElement,
             },
             start_config_button: get_element_reference(
                 'start-config-button'
@@ -350,28 +340,6 @@ export namespace DomRegistry {
             hemat_used: get_element_reference('stat-hemat-used'),
             rmat_used: get_element_reference('stat-rmat-used'),
             achievement_owned: get_element_reference('stat-owned-achievements'),
-            view_statcard_button: get_element_reference(
-                'show-statcard'
-            ) as HTMLButtonElement,
-        };
-        statcard_registry = {
-            image: get_element_reference('statcard-image') as HTMLImageElement,
-            name_input: get_element_reference(
-                'statcard-username'
-            ) as HTMLInputElement,
-            clantag_input: get_element_reference(
-                'statcard-clantag'
-            ) as HTMLInputElement,
-            avatar_input: get_element_reference(
-                'statcard-avatar'
-            ) as HTMLInputElement,
-            warnumber_input: get_element_reference(
-                'statcard-warnumber'
-            ) as HTMLInputElement,
-            return_button: get_element_reference(
-                'statcard-return-button'
-            ) as HTMLButtonElement,
-            root_element: get_element_reference('statcard-view'),
         };
     }
 
@@ -397,9 +365,5 @@ export namespace DomRegistry {
 
     export function get_achivement_card(): HTMLTemplateElement {
         return achivement_template;
-    }
-
-    export function get_statcard_registry(): StatcardRegistry {
-        return statcard_registry;
     }
 }

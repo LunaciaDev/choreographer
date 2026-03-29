@@ -123,5 +123,5 @@ export function get_image_path(item_type: ItemType): string {
 
 export const number_formatter = new Intl.NumberFormat('en-US', {
     notation: 'compact',
-    maximumSignificantDigits: 4,
+    maximumSignificantDigits: 3,
 });
